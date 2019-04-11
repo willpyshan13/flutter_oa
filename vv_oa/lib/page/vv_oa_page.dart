@@ -29,7 +29,6 @@ class _VVOAAppState extends State<VVOAApp>
     );
   }
 
-
   @override
   void initState() {
     super.initState();

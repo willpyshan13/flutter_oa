@@ -4,6 +4,7 @@ import 'package:dartin/dartin.dart';
 import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import 'package:vv_oa/constant/constants.dart';
+import 'package:vv_oa/util/DataUtils.dart';
 import 'package:vv_oa/util/widgetutils.dart';
 import 'package:vv_oa/http/api.dart';
 import 'package:vv_oa/http/http_util_with_cookie.dart';
@@ -14,8 +15,7 @@ import 'package:vv_oa/widget/slide_view.dart';
 import 'package:vv_oa/viewmodel/home_message_viewmodel.dart';
 
 class HomeMessagePage extends PageProvideNode {
-
-  HomeMessagePage(){
+  HomeMessagePage() {
     mProviders.provideValue(inject<HomeMessageViewModel>());
   }
 
@@ -33,8 +33,7 @@ class _HomeContentPage extends StatefulWidget {
   }
 }
 
-
-class HomeMessagePageState extends State<_HomeContentPage>{
+class HomeMessagePageState extends State<_HomeContentPage> {
   HomeMessageViewModel _homeMessageViewModel;
   List listData = List();
   var bannerData;
@@ -51,7 +50,7 @@ class HomeMessagePageState extends State<_HomeContentPage>{
       var pixels = _controller.position.pixels;
 
       if (maxScroll == pixels && listData.length < listTotalSize) {
-        _getHomeArticleList();
+        _getTokenAndRequestData();
       }
     });
   }
@@ -79,13 +78,14 @@ class HomeMessagePageState extends State<_HomeContentPage>{
   Future<Null> _pullToRefresh() async {
     curPage = 0;
 //    getBanner();
-    _getHomeArticleList();
+    _getTokenAndRequestData();
     return null;
   }
 
   @override
   Widget build(BuildContext context) {
-    _homeMessageViewModel  = Provide.value<HomeMessageViewModel>(context);
+    _homeMessageViewModel = Provide.value<HomeMessageViewModel>(context);
+    _getTokenAndRequestData();
     if (listData == null) {
       return Center(
         child: CircularProgressIndicator(),
@@ -115,19 +115,24 @@ class HomeMessagePageState extends State<_HomeContentPage>{
     });
   }
 
-  void _getHomeArticleList() {
-    final s = _homeMessageViewModel.getFlowOverview().doOnListen(() {
-    }).doOnDone(() {
-    }).doOnData((r){
-//      print(r);
+  void _getTokenAndRequestData(){
+    DataUtils.getToken().then((str) {
+      print("home message");
+      if(str!=null) {
+        _getHomeArticleList(str);
+      }
+    });
+  }
+
+  void _getHomeArticleList(String token) {
+    final s = _homeMessageViewModel
+        .getFlowOverview(token)
+        .doOnListen(() {})
+        .doOnDone(() {})
+        .doOnData((r) {
       print("======doOnData======");
       listData.addAll(r["rows"]);
-//      setState(() {
-//
-//      });
       print(r["rows"]);
-      print(listData.elementAt(0)["title"]);
-//      Toast.show(data.rows.elementAt(0).title, context, type: Toast.SUCCESS);
     }).doOnCancel(() {
       print("======cancel======");
     }).listen((t) {

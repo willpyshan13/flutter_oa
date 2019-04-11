@@ -19,7 +19,7 @@ class Api {
   static const   String UNCOLLECT_LIST = "lg/uncollect/";
 
   //登录,注册
-  static const   String LOGIN = "/api/login/account";
+  static const   String LOGIN = "api/login/account";
   static const   String REGISTER = "user/register";
 
   //知识体系

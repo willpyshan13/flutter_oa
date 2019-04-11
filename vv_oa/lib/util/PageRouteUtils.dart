@@ -23,8 +23,6 @@ routeWebView(BuildContext context, String title, String url) {
 }
 
 routePagerNavigator(BuildContext context, Widget v) {
-//  Navigator.push(context, new MaterialPageRoute(builder: (context) => v));
-
   Navigator.of(context).push(new PageRouteBuilder(
       opaque: false,
       pageBuilder: (BuildContext context, _, __) {

@@ -49,4 +49,60 @@ class DataUtils {
     bool b = sp.getBool(isLogin);
     return true == b;
   }
+
+  static SharedPreferences _spf;
+
+  DataUtils._();
+
+  Future _init() async {
+    _spf = await SharedPreferences.getInstance();
+  }
+
+  static DataUtils _instance;
+  static Future<DataUtils> get instance async {
+    return await getInstance();
+  }
+
+
+  Future<bool> putString(String key, String value) {
+    if (_beforeCheck()) return null;
+    return _spf.setString(key, value);
+  }
+
+  bool getBool(String key) {
+    if (_beforeCheck()) return null;
+    return _spf.getBool(key);
+  }
+
+  Future<bool> putBool(String key, bool value) {
+    if (_beforeCheck()) return null;
+    return _spf.setBool(key, value);
+  }
+
+  int getInt(String key) {
+    if (_beforeCheck()) return null;
+    return _spf.getInt(key);
+  }
+
+
+  getString(String key) {
+    if (_beforeCheck()) return null;
+    return _spf.getString(key);
+  }
+
+  static bool _beforeCheck() {
+    if (_spf == null) {
+      return true;
+    }
+    return false;
+  }
+
+  static Future<DataUtils> getInstance() async  {
+    if (_instance == null) {
+      _instance = new DataUtils._();
+      await _instance._init();
+
+    }
+    return _instance;
+  }
 }

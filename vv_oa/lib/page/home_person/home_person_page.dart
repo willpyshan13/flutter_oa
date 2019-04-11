@@ -4,6 +4,7 @@ import 'package:vv_oa/event/login_event.dart';
 import 'package:vv_oa/page/about/about_us_page.dart';
 import 'package:vv_oa/page/login/login_page.dart';
 import 'package:vv_oa/util/DataUtils.dart';
+import 'package:vv_oa/util/PageRouteUtils.dart';
 
 class HomePersonInfoPage extends StatefulWidget {
   @override
@@ -82,7 +83,12 @@ class HomePersonInfoPageState extends State<HomePersonInfoPage> with WidgetsBind
           DataUtils.clearLoginInfo();
           setState(() {
             userName = null;
-          });
+          },);
+          ///退出登录，直接回到登录页面
+          routePagerNavigator(context, new LoginPage("VVOA"));
+//          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+//            return LoginPage("VVOA");
+//          }));
         });
 
     return ListView(

@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:vv_oa/model/vv_model_repository.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:vv_oa/util/DataUtils.dart';
 
 /**
  * ViewModel
@@ -39,8 +40,8 @@ class HomeMessageViewModel extends ChangeNotifier {
    * doOnListen ： show loading when listen start
    * doOnDone ： hide loading when complete
    */
-  Observable getFlowOverview() => _repo
-      .getFlowOverview()
+  Observable getFlowOverview(String token) => _repo
+      .getFlowOverview(token)
       .doOnData((r) => {
           response = r.toString()
       })

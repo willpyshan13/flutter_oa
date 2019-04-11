@@ -63,7 +63,7 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
       });
   }
 
-  initSearchHistory() async {
+  initPreference() async {
     sp = await SpUtil.getInstance();
   }
 
@@ -88,15 +88,18 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
     }).doOnDone(() {
       _controller.reverse();
     }).doOnData((r){
-//      var re = LoginEntity.fromJson(r);
-//      if(re.code == VHttpStatus.statusOk){
-//        Toast.show(re.message, context, type: Toast.SUCCESS);
-//        sp.putBool(SharedPreferencesKeys.isLogin, true);
-//        DataUtils.saveLoginInfo(name,password,re.data,re.currentAuthority).then((r) {
-//          Constants.eventBus.fire(LoginEvent());
-//          routePagerNavigator(context, new VVOAApp());
-//        });
-//      }
+      var re = LoginEntity.fromJson(r);
+      if(re.code == VHttpStatus.statusOk){
+        Toast.show(re.message, context, type: Toast.SUCCESS);
+        sp.putBool(SharedPreferencesKeys.isLogin, true);
+        DataUtils.saveLoginInfo(name,password,re.data,re.currentAuthority).then((r) {
+          Constants.eventBus.fire(LoginEvent());
+          Navigator.of(context).pop(true);
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return VVOAApp();
+          }));
+        });
+      }
     }).doOnCancel(() {
       print("======cancel======");
     }).listen((_) {
@@ -113,6 +116,7 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
   Widget build(BuildContext context) {
     _viewModel = Provide.value<LoginViewModel>(context);
     print("--------build--------");
+    initPreference();
     return Scaffold(
       appBar: AppBar(
         title: Text(_viewModel.title),
