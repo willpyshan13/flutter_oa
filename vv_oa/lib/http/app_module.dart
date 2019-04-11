@@ -31,7 +31,7 @@ final remoteModule = Module([
   single<VVModelService>(VVModelService()),
 ]);
 
-final appModule = [viewModelModule, repoModule, remoteModule];
+final appModule = [viewModelModule, repoModule, remoteModule,localModule];
 
 DataUtils spUtil;
 

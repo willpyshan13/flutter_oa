@@ -21,7 +21,9 @@ class VVModelRepository {
   }
 
   Observable getFlowOverview() {
-    token = "Bearer "+_sp.getString(DataUtils.token);
+    if(_sp!=null){
+      token = "Bearer "+_sp.getString(DataUtils.token);
+    }
     return _remote.getFlowOverview();
   }
 }

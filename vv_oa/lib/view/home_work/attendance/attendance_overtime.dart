@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vv_oa/constant/global_config.dart';
+import 'package:vv_oa/util/PageRouteUtils.dart';
+import 'package:vv_oa/view/home_work/attendance/attendance_overtime_detail.dart';
 import 'package:vv_oa/view/home_work/attendance/attendance_widget.dart';
 
 ///加班
@@ -197,7 +199,9 @@ class _AttendanceOvertimePageState extends State<AttendanceOvertimePage> {
             ),
           ),
           new MaterialButton(
-            onPressed: () {},
+            onPressed: () {
+              routePagerNavigator(context, new AttendanceOvertimeDetailPage());
+            },
             child: Text("提交",style: TextStyle(color: Colors.white)),
             // 按钮颜色
             color: Colors.blueAccent,

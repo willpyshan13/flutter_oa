@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vv_oa/constant/shared_preferences_keys.dart';
 import 'package:vv_oa/view/login/login_page.dart';
 import 'package:vv_oa/view/vv_oa_page.dart';
 import 'package:vv_oa/http/app_module.dart';
-import 'package:dartin/dartin.dart';
 import 'package:vv_oa/util/DataUtils.dart';
 
 const int ThemeColor = 0xFFC91B3A;
@@ -11,7 +9,7 @@ DataUtils sp;
 
 Future main() async {
   /// DartIn start
-  init();
+  await init();
   sp = await DataUtils.getInstance();
   runApp(new MyApp());
 }
@@ -21,7 +19,7 @@ Future main() async {
 class MyApp extends StatelessWidget {
   showLoginPage() {
      //判断是否登录，没有登录就跳转登录页面
-    bool isLogin = sp.getBool(SharedPreferencesKeys.isLogin);
+    bool isLogin = sp.getBool(DataUtils.token);
     if (isLogin == null || isLogin == true) {
       return VVOAApp();
     } else {

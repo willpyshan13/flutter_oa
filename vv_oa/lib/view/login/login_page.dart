@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vv_oa/constant/constants.dart';
 import 'package:vv_oa/constant/http_status.dart';
-import 'package:vv_oa/constant/shared_preferences_keys.dart';
 import 'package:vv_oa/entity/login_entity.dart';
 import 'package:vv_oa/event/login_event.dart';
 import 'package:vv_oa/view/vv_oa_page.dart';
@@ -94,7 +93,7 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
       var re = LoginEntity.fromJson(value);
       if(re.code == VHttpStatus.statusOk){
         Toast.show(re.message, context, type: Toast.SUCCESS);
-        sp.putBool(SharedPreferencesKeys.isLogin, true);
+        sp.putBool(DataUtils.isLogin, true);
         DataUtils.saveLoginInfo(name,password,re.data,re.currentAuthority).then((r) {
           Constants.eventBus.fire(LoginEvent());
           Navigator.of(context).pop(true);

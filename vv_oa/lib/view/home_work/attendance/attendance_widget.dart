@@ -3,9 +3,9 @@ import 'package:vv_oa/constant/global_config.dart';
 import 'package:vv_oa/widget/picker_widget.dart';
 
 Widget getAttendanceTextItem(BuildContext context, String title) {
-  return new Container(
+  return Container(
     color: GlobalConfig.cardBackgroundColor,
-    child: new FlatButton(
+    child: FlatButton(
         onPressed: () {
 //            _handleOnItemCollect(widget.itemData);
         },
@@ -40,7 +40,7 @@ Widget getAttendanceTextItem(BuildContext context, String title) {
 
 Widget getAttendanceTextItemNoIcon(
     BuildContext context, String title, String subTitle) {
-  return new Container(
+  return Container(
     color: GlobalConfig.cardBackgroundColor,
     child: new FlatButton(
         onPressed: () {
@@ -73,11 +73,11 @@ Widget getAttendanceTextItemNoIcon(
 }
 
 Widget getContainerText(BuildContext context, String title) {
-  return new Container(
+  return Container(
     color: GlobalConfig.cardBackgroundColor,
-    child: new Container(
+    child: Container(
       margin: const EdgeInsets.only(left: 15.0),
-      child: new Text(
+      child: Text(
         title,
         softWrap: true,
         style: TextStyle(color: Theme.of(context).accentColor),
@@ -120,11 +120,11 @@ Widget getImagePicker(BuildContext context) {
         Text(GlobalConfig.commonImageText,
             style: TextStyle(fontSize: 15.5, height: 1.2, color: Colors.blue),
             textAlign: TextAlign.left),
-        new Container(
+         Container(
           margin: const EdgeInsets.only(bottom: 6.0),
-          child: new CircleAvatar(
+          child: CircleAvatar(
             radius: 20.0,
-            child: new Icon(Icons.add, color: Colors.white),
+            child: Icon(Icons.add, color: Colors.white),
             backgroundColor: Colors.grey,
           ),
         ),
