@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vv_oa/constant/global_config.dart';
 import 'package:vv_oa/constant/work_item.dart';
-import 'package:vv_oa/page/home_work/work_finance_card.dart';
-import 'package:vv_oa/page/home_work/work_management_card.dart';
-import 'package:vv_oa/page/home_work/work_attendance_card.dart';
-import 'package:vv_oa/page/login/login_page.dart';
+import 'package:vv_oa/view/home_work/work_finance_card.dart';
+import 'package:vv_oa/view/home_work/work_management_card.dart';
+import 'package:vv_oa/view/home_work/work_attendance_card.dart';
+import 'package:vv_oa/view/login/login_page.dart';
 import 'package:vv_oa/util/DataUtils.dart';
 //工作
 class HomeWorkPage extends StatefulWidget {

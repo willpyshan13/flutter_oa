@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:vv_oa/constant/global_config.dart';
-import 'package:vv_oa/page/home_work/attendance/attendance.dart';
-import 'package:vv_oa/page/home_work/attendance/attendance_leave.dart';
-import 'package:vv_oa/page/home_work/attendance/attendance_outing.dart';
-import 'package:vv_oa/page/home_work/attendance/attendance_overtime.dart';
-import 'package:vv_oa/page/home_work/attendance/attendance_statistics.dart';
-import 'package:vv_oa/page/home_work/attendance/attendance_supplementary_apply.dart';
-import 'package:vv_oa/page/home_work/attendance/attendance_sign.dart';
+import 'package:vv_oa/view/home_work/attendance/attendance.dart';
+import 'package:vv_oa/view/home_work/attendance/attendance_leave.dart';
+import 'package:vv_oa/view/home_work/attendance/attendance_outing.dart';
+import 'package:vv_oa/view/home_work/attendance/attendance_overtime.dart';
+import 'package:vv_oa/view/home_work/attendance/attendance_statistics.dart';
+import 'package:vv_oa/view/home_work/attendance/attendance_supplementary_apply.dart';
+import 'package:vv_oa/view/home_work/attendance/attendance_sign.dart';
 import 'package:vv_oa/util/PageRouteUtils.dart';
 
 Widget getWorkServiceCard(BuildContext context) {

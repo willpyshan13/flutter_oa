@@ -6,13 +6,13 @@ import 'package:vv_oa/constant/http_status.dart';
 import 'package:vv_oa/constant/shared_preferences_keys.dart';
 import 'package:vv_oa/entity/login_entity.dart';
 import 'package:vv_oa/event/login_event.dart';
-import 'package:vv_oa/page/vv_oa_page.dart';
+import 'package:vv_oa/view/vv_oa_page.dart';
 import 'package:vv_oa/util/DataUtils.dart';
 import 'package:vv_oa/util/dialog.dart';
 import 'package:vv_oa/util/shared_preferences.dart';
 import 'package:vv_oa/util/toast.dart';
 import 'package:vv_oa/util/widgetutils.dart';
-import 'package:vv_oa/page/base/base.dart';
+import 'package:vv_oa/view/base/base.dart';
 import 'package:vv_oa/viewmodel/login_viewmodel.dart';
 import 'package:provide/provide.dart';
 

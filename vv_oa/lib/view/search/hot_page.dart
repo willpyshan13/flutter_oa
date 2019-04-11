@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vv_oa/http/api.dart';
 import 'package:vv_oa/http/default_http_util_with_cookie.dart';
-import 'package:vv_oa/page/webview/article_detail_page.dart';
-import 'package:vv_oa/page/search/search_page.dart';
+import 'package:vv_oa/view/webview/article_detail_page.dart';
+import 'package:vv_oa/view/search/search_page.dart';
 
 class HotPage extends StatefulWidget {
   @override

@@ -24,8 +24,8 @@ class HomeMessageViewModel extends ChangeNotifier {
 
   HomeMessageViewModel(this.title,this._repo);
 
-  Observable getFlowOverview(String token) => _repo
-      .getFlowOverview(token)
+  Observable getFlowOverview() => _repo
+      .getFlowOverview()
       .doOnData((r) => {
           response = r.toString()
       })

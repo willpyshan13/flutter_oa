@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:vv_oa/page/webview/article_detail_page.dart';
+import 'package:vv_oa/constant/global_config.dart';
+import 'package:vv_oa/view/webview/article_detail_page.dart';
 
-//关于我们
-class AboutUsPage extends StatefulWidget {
+///补卡申请
+class AttendanceSupplementaryPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return AboutUsPageState();
+    return _AttendanceSupplementaryPageState();
   }
 }
 
-class AboutUsPageState extends State<AboutUsPage> {
+class _AttendanceSupplementaryPageState extends State<AttendanceSupplementaryPage> {
   @override
   Widget build(BuildContext context) {
     Widget icon = Image.asset(
@@ -20,7 +21,7 @@ class AboutUsPageState extends State<AboutUsPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('关于'),
+        title: Text(GlobalConfig.vWorkSupplementaryApply),
       ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),

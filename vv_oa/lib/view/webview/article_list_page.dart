@@ -4,56 +4,56 @@ import 'package:flutter/material.dart';
 import 'package:vv_oa/constant/constants.dart';
 import 'package:vv_oa/http/api.dart';
 import 'package:vv_oa/http/default_http_util_with_cookie.dart';
-import 'package:vv_oa/page/item/article_item.dart';
+import 'package:vv_oa/view/item/article_item.dart';
 import 'package:vv_oa/widget/end_line.dart';
 
-class SearchListPage extends StatefulWidget {
-  String id;
+class ArticleListPage extends StatefulWidget {
+  final String id;
 
-  //这里为什么用含有key的这个构造,大家可以试一下不带key 直接SearchListPage(this.id) ,看看会有什么bug;
-
-  SearchListPage(ValueKey<String> key) : super(key: key) {
-    this.id = key.value.toString();
-  }
-
-  SearchListPageState searchListPageState;
+  ArticleListPage(this.id);
 
   @override
   State<StatefulWidget> createState() {
-    return  SearchListPageState();
+    return  ArticleListPageState();
   }
 }
 
-class SearchListPageState extends State<SearchListPage> {
+class ArticleListPageState extends State<ArticleListPage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  //  若当前tab切到任意非相邻tab(如:第一个tab切换到第三个)，会报错，请升级flutter版本
   int curPage = 0;
 
   Map<String, String> map =  Map();
   List listData =  List();
   int listTotalSize = 0;
-  ScrollController _contraller =  ScrollController();
+  ScrollController _controller =  ScrollController();
 
   @override
   void initState() {
     super.initState();
 
-    _contraller.addListener(() {
-      var maxScroll = _contraller.position.maxScrollExtent;
-      var pixels = _contraller.position.pixels;
+    _getArticleList();
+
+    _controller.addListener(() {
+      var maxScroll = _controller.position.maxScrollExtent;
+      var pixels = _controller.position.pixels;
 
       if (maxScroll == pixels && listData.length < listTotalSize) {
-        _articleQuery();
+        _getArticleList();
       }
     });
-
-    _articleQuery();
   }
+
+//  bool isDisposed = false;
 
   @override
   void dispose() {
-    _contraller.dispose();
+    _controller.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -63,28 +63,30 @@ class SearchListPageState extends State<SearchListPage> {
       );
     } else {
       Widget listView =  ListView.builder(
+        key:  PageStorageKey(widget.id),
         itemCount: listData.length,
         itemBuilder: (context, i) => buildItem(i),
-        controller: _contraller,
+        controller: _controller,
       );
 
-      return  RefreshIndicator(child: listView, onRefresh: pullToRefresh);
+      return  RefreshIndicator(child: listView, onRefresh: _pullToRefresh);
     }
   }
 
-  void _articleQuery() {
-    String url = '';
+  void _getArticleList() {
+    String url = Api.FLOW_OVERVIEW;
     url += "$curPage/json";
-    map['k'] = widget.id;
-
-    HttpUtil.post(url, (data) {
+    map['cid'] = widget.id;
+    HttpUtil.get(url, (data) {
       if (data != null) {
         Map<String, dynamic> map = data;
-
         var _listData = map['datas'];
-
         listTotalSize = map["total"];
 
+//        if(!this.mounted){
+//          return;
+//        }
+//
         setState(() {
           List list1 =  List();
           if (curPage == 0) {
@@ -95,9 +97,7 @@ class SearchListPageState extends State<SearchListPage> {
           list1.addAll(listData);
           list1.addAll(_listData);
           if (list1.length >= listTotalSize) {
-
             list1.add(Constants.END_LINE_TAG);
-
           }
           listData = list1;
         });
@@ -105,9 +105,9 @@ class SearchListPageState extends State<SearchListPage> {
     }, params: map);
   }
 
-  Future<Null> pullToRefresh() async {
+  Future<Null> _pullToRefresh() async {
     curPage = 0;
-    _articleQuery();
+    _getArticleList();
     return null;
   }
 
@@ -119,6 +119,6 @@ class SearchListPageState extends State<SearchListPage> {
       return  EndLine();
     }
 
-    return  ArticleItem.isFromSearch(itemData, widget.id);
+    return  ArticleItem(itemData);
   }
 }

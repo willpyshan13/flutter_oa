@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vv_oa/constant/colors.dart';
-import 'package:vv_oa/page/home_message/home_message_page.dart';
-import 'package:vv_oa/page/home_person/home_person_page.dart';
-import 'package:vv_oa/page/login/login_page.dart';
-import 'package:vv_oa/page/home_work/home_work_page.dart';
+import 'package:vv_oa/view/home_message/home_message_page.dart';
+import 'package:vv_oa/view/home_person/home_person_page.dart';
+import 'package:vv_oa/view/login/login_page.dart';
+import 'package:vv_oa/view/home_work/home_work_page.dart';
 import 'package:vv_oa/util/DataUtils.dart';
 
 //主页

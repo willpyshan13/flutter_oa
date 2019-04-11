@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vv_oa/constant/global_config.dart';
-import 'package:vv_oa/page/webview/article_detail_page.dart';
+import 'package:vv_oa/view/webview/article_detail_page.dart';
 
 ///考勤统计
 class AttendanceStatisticsPage extends StatefulWidget {

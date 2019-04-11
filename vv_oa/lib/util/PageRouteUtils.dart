@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vv_oa/page/webview/article_detail_page.dart';
+import 'package:vv_oa/view/webview/article_detail_page.dart';
 
 routeWebView(BuildContext context, String title, String url) {
 //  Navigator.of(context).push(new MaterialPageRoute(builder: (context) {

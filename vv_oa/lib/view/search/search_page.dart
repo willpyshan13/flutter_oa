@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vv_oa/page/search/hot_page.dart';
-import 'package:vv_oa/page/search/search_list_page.dart';
+import 'package:vv_oa/view/search/hot_page.dart';
+import 'package:vv_oa/view/search/search_list_page.dart';
 
 class SearchPage extends StatefulWidget {
   String searchStr;

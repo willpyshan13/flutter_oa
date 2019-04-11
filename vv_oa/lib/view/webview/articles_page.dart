@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vv_oa/page/webview/article_list_page.dart';
+import 'package:vv_oa/view/webview/article_list_page.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 
 class ArticlesPage extends StatefulWidget {

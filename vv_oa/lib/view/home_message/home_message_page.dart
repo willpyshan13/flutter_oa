@@ -8,8 +8,8 @@ import 'package:vv_oa/util/DataUtils.dart';
 import 'package:vv_oa/util/widgetutils.dart';
 import 'package:vv_oa/http/api.dart';
 import 'package:vv_oa/http/default_http_util_with_cookie.dart';
-import 'package:vv_oa/page/item/article_item.dart';
-import 'package:vv_oa/page/base/base.dart';
+import 'package:vv_oa/view/item/article_item.dart';
+import 'package:vv_oa/view/base/base.dart';
 import 'package:vv_oa/widget/end_line.dart';
 import 'package:vv_oa/widget/slide_view.dart';
 import 'package:vv_oa/viewmodel/home_message_viewmodel.dart';
@@ -50,7 +50,7 @@ class HomeMessagePageState extends State<_HomeContentPage> {
       var pixels = _controller.position.pixels;
 
       if (maxScroll == pixels && listData.length < listTotalSize) {
-        _getTokenAndRequestData();
+        _getHomeArticleList();
       }
     });
   }
@@ -78,14 +78,14 @@ class HomeMessagePageState extends State<_HomeContentPage> {
   Future<Null> _pullToRefresh() async {
     curPage = 0;
 //    getBanner();
-    _getTokenAndRequestData();
+    _getHomeArticleList();
     return null;
   }
 
   @override
   Widget build(BuildContext context) {
     _homeMessageViewModel = Provide.value<HomeMessageViewModel>(context);
-    _getTokenAndRequestData();
+    _getHomeArticleList();
     if (listData == null) {
       return Center(
         child: CircularProgressIndicator(),
@@ -104,29 +104,13 @@ class HomeMessagePageState extends State<_HomeContentPage> {
   SlideView _bannerView;
 
   ///用来展示公司公告布局，暂时没有请求网络
-  void getBanner() {
+  void getBanner() {}
 
-  }
-
-  void _getTokenAndRequestData(){
-    DataUtils.getToken().then((str) {
-      print("home message");
-      if(str!=null) {
-        _getHomeArticleList(str);
-      }
-    });
-  }
-
-  void _getHomeArticleList(String token) {
+  void _getHomeArticleList() {
     final s = _homeMessageViewModel
-        .getFlowOverview(token)
+        .getFlowOverview()
         .doOnListen(() {})
-        .doOnDone(() {})
-        .doOnData((r) {
-      print("======doOnData======");
-      listData.addAll(r["rows"]);
-      print(r["rows"]);
-    }).doOnCancel(() {
+        .doOnCancel(() {
       print("======cancel======");
     }).listen((t) {
       //success

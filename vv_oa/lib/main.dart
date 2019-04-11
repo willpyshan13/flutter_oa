@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vv_oa/constant/shared_preferences_keys.dart';
-import 'package:vv_oa/page/login/login_page.dart';
-import 'package:vv_oa/page/vv_oa_page.dart';
+import 'package:vv_oa/view/login/login_page.dart';
+import 'package:vv_oa/view/vv_oa_page.dart';
 import 'package:vv_oa/http/app_module.dart';
 import 'package:dartin/dartin.dart';
 import 'package:vv_oa/util/DataUtils.dart';
@@ -11,7 +11,7 @@ DataUtils sp;
 
 Future main() async {
   /// DartIn start
-  startDartIn(appModule);
+  init();
   sp = await DataUtils.getInstance();
   runApp(new MyApp());
 }

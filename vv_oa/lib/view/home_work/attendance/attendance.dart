@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:vv_oa/constant/global_config.dart';
-import 'package:vv_oa/page/webview/article_detail_page.dart';
+import 'package:vv_oa/view/webview/article_detail_page.dart';
 
-///补卡申请
-class AttendanceSupplementaryPage extends StatefulWidget {
+///考勤打卡页面
+class AttendancePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _AttendanceSupplementaryPageState();
+    return _AttendancePageState();
   }
 }
 
-class _AttendanceSupplementaryPageState extends State<AttendanceSupplementaryPage> {
+class _AttendancePageState extends State<AttendancePage> {
   @override
   Widget build(BuildContext context) {
     Widget icon = Image.asset(
@@ -21,7 +21,7 @@ class _AttendanceSupplementaryPageState extends State<AttendanceSupplementaryPag
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(GlobalConfig.vWorkSupplementaryApply),
+        title: Text(GlobalConfig.workAttendance),
       ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),

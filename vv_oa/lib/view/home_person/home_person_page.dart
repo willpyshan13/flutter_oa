@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vv_oa/constant/constants.dart';
 import 'package:vv_oa/event/login_event.dart';
-import 'package:vv_oa/page/about/about_us_page.dart';
-import 'package:vv_oa/page/login/login_page.dart';
+import 'package:vv_oa/view/about/about_us_page.dart';
+import 'package:vv_oa/view/login/login_page.dart';
 import 'package:vv_oa/util/DataUtils.dart';
 import 'package:vv_oa/util/PageRouteUtils.dart';
 
