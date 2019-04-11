@@ -7,6 +7,7 @@ const double _kPickerSheetHeight = 216.0;
 const double _kPickerItemHeight = 32.0;
 
 
+///ios风格的选择框
 Widget buildColorPicker(BuildContext context) {
   final FixedExtentScrollController scrollController =
   FixedExtentScrollController(initialItem: 0);

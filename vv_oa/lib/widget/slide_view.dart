@@ -11,6 +11,7 @@ class SlideView extends StatefulWidget {
   }
 }
 
+///侧边布局，暂时没有引用
 class SlideViewState extends State<SlideView>
     with SingleTickerProviderStateMixin {
   TabController tabController;

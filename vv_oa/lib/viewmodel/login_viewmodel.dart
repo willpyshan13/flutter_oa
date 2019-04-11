@@ -7,10 +7,7 @@ import 'package:vv_oa/event/login_event.dart';
 import 'package:vv_oa/model/vv_model_repository.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:vv_oa/util/DataUtils.dart';
-
-/**
- * ViewModel
- */
+///登陆viewmodel
 class LoginViewModel extends ChangeNotifier {
   final CompositeSubscription _subscriptions = CompositeSubscription();
   final VVModelRepository _repo;

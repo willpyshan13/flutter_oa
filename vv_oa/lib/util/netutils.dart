@@ -1,7 +1,7 @@
 
 import 'dart:async';
 
-import 'package:vv_oa/http/modules.dart';
+import 'package:vv_oa/http/dio_http_modules.dart';
 import 'package:rxdart/rxdart.dart';
 
 Future _get(String url, {Map<String, dynamic> params}) async {

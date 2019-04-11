@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:vv_oa/constant/constants.dart';
 import 'package:vv_oa/http/api.dart';
-import 'package:vv_oa/http/http_util_with_cookie.dart';
+import 'package:vv_oa/http/default_http_util_with_cookie.dart';
 import 'package:vv_oa/page/item/article_item.dart';
 import 'package:vv_oa/widget/end_line.dart';
 

@@ -6,13 +6,11 @@ import 'package:vv_oa/model/vv_model_repository.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:vv_oa/util/DataUtils.dart';
 
-/**
- * ViewModel
- */
+///我的页面
+///提供数据model
 class HomeMessageViewModel extends ChangeNotifier {
   final CompositeSubscription _subscriptions = CompositeSubscription();
   final VVModelRepository _repo;
-  bool _loading = false;
   String _response = "";
 
   final String title;
@@ -24,22 +22,8 @@ class HomeMessageViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool get loading => _loading;
-
-  set loading(bool loading) {
-    _loading = loading;
-    notifyListeners();
-  }
-
   HomeMessageViewModel(this.title,this._repo);
 
-  /**
-   * call the model layer 's method to login
-   * doOnData : handle response when success
-   * doOnError : handle error when failure
-   * doOnListen ： show loading when listen start
-   * doOnDone ： hide loading when complete
-   */
   Observable getFlowOverview(String token) => _repo
       .getFlowOverview(token)
       .doOnData((r) => {
@@ -50,8 +34,7 @@ class HomeMessageViewModel extends ChangeNotifier {
           response = e.response.data.toString();
         }
       })
-      .doOnListen(() => loading = true)
-      .doOnDone(() => loading = false);
+      ;
 
   @override
   void dispose() {

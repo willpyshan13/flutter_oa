@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:vv_oa/constant/constants.dart';
 import 'package:vv_oa/http/api.dart';
-import 'package:vv_oa/http/http_util_with_cookie.dart';
+import 'package:vv_oa/http/default_http_util_with_cookie.dart';
 import 'package:vv_oa/page/item/article_item.dart';
 import 'package:vv_oa/widget/end_line.dart';
 
@@ -73,7 +73,7 @@ class SearchListPageState extends State<SearchListPage> {
   }
 
   void _articleQuery() {
-    String url = Api.ARTICLE_QUERY;
+    String url = '';
     url += "$curPage/json";
     map['k'] = widget.id;
 

@@ -1,10 +1,11 @@
 import 'dart:convert';
 
-import 'package:vv_oa/http/modules.dart';
+import 'package:vv_oa/http/dio_http_modules.dart';
 import 'package:vv_oa/entity/user.dart';
 import 'package:vv_oa/model/vv_model_service.dart';
 import 'package:rxdart/rxdart.dart';
 
+///网络库
 class VVModelRepository {
   final VVModelService _remote;
 

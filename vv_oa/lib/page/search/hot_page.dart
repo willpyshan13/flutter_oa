@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vv_oa/http/api.dart';
-import 'package:vv_oa/http/http_util_with_cookie.dart';
+import 'package:vv_oa/http/default_http_util_with_cookie.dart';
 import 'package:vv_oa/page/webview/article_detail_page.dart';
 import 'package:vv_oa/page/search/search_page.dart';
 
@@ -18,8 +18,6 @@ class HotPageState extends State<HotPage> {
   @override
   void initState() {
     super.initState();
-    _getFriend();
-    _getHotKey();
   }
 
   @override
@@ -48,59 +46,5 @@ class HotPageState extends State<HotPage> {
         ),
       ],
     );
-  }
-
-  void _getFriend() {
-    HttpUtil.get(Api.FRIEND, (data) {
-      setState(() {
-        List datas = data;
-        friendWidgets.clear();
-        for (var itemData in datas) {
-          Widget actionChip =  ActionChip(
-              backgroundColor: Theme.of(context).accentColor,
-              label:  Text(
-                itemData['name'],
-                style:  TextStyle(color: Colors.white),
-              ),
-              onPressed: () {
-                itemData['title'] = itemData['name'];
-                Navigator
-                    .of(context)
-                    .push( MaterialPageRoute(builder: (context) {
-                  return  ArticleDetailPage(
-                      title: itemData['title'], url: itemData['link']);
-                }));
-              });
-
-          friendWidgets.add(actionChip);
-        }
-      });
-    });
-  }
-
-  void _getHotKey() {
-    HttpUtil.get(Api.HOTKEY, (data) {
-      setState(() {
-        List datas = data;
-        hotKeyWidgets.clear();
-        for (var value in datas) {
-          Widget actionChip =  ActionChip(
-              backgroundColor: Theme.of(context).accentColor,
-              label:  Text(
-                value['name'],
-                style:  TextStyle(color: Colors.white),
-              ),
-              onPressed: () {
-                Navigator
-                    .of(context)
-                    .pushReplacement( MaterialPageRoute(builder: (context) {
-                  return  SearchPage(value['name']);
-                }));
-              });
-
-          hotKeyWidgets.add(actionChip);
-        }
-      });
-    });
   }
 }

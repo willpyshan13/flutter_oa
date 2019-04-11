@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vv_oa/http/api.dart';
-import 'package:vv_oa/http/http_util_with_cookie.dart';
+import 'package:vv_oa/http/default_http_util_with_cookie.dart';
 import 'package:vv_oa/util/DataUtils.dart';
 import 'package:vv_oa/util/StringUtils.dart';
 
@@ -60,18 +60,7 @@ class ArticleItemState extends State<ArticleItem> {
 
   //收藏/取消收藏
   void _itemCollect(var itemData) {
-    String url;
-    if (itemData['collect']) {
-      url = Api.UNCOLLECT_ORIGINID;
-    } else {
-      url = Api.COLLECT;
-    }
-    url += '${itemData["id"]}/json';
-    HttpUtil.post(url, (data) {
-      setState(() {
-        itemData['collect'] = !itemData['collect'];
-      });
-    });
+
   }
 
   @override

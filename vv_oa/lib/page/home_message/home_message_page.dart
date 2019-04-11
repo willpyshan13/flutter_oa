@@ -7,7 +7,7 @@ import 'package:vv_oa/constant/constants.dart';
 import 'package:vv_oa/util/DataUtils.dart';
 import 'package:vv_oa/util/widgetutils.dart';
 import 'package:vv_oa/http/api.dart';
-import 'package:vv_oa/http/http_util_with_cookie.dart';
+import 'package:vv_oa/http/default_http_util_with_cookie.dart';
 import 'package:vv_oa/page/item/article_item.dart';
 import 'package:vv_oa/page/base/base.dart';
 import 'package:vv_oa/widget/end_line.dart';
@@ -103,16 +103,9 @@ class HomeMessagePageState extends State<_HomeContentPage> {
 
   SlideView _bannerView;
 
+  ///用来展示公司公告布局，暂时没有请求网络
   void getBanner() {
-    String bannerUrl = Api.BANNER;
-    HttpUtil.get(bannerUrl, (data) {
-      if (data != null) {
-        setState(() {
-          bannerData = data;
-          _bannerView = SlideView(bannerData);
-        });
-      }
-    });
+
   }
 
   void _getTokenAndRequestData(){
@@ -155,7 +148,7 @@ class HomeMessagePageState extends State<_HomeContentPage> {
     }
     i -= 1;
 
-    var itemData = null;
+    var itemData;
 
     if (itemData is String && itemData == Constants.END_LINE_TAG) {
       return EndLine();

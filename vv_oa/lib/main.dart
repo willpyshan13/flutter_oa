@@ -16,9 +16,10 @@ Future main() async {
   runApp(new MyApp());
 }
 
+
+///程序主入口
 class MyApp extends StatelessWidget {
   showLoginPage() {
-//    return VVOAApp();
      //判断是否登录，没有登录就跳转登录页面
     bool isLogin = sp.getBool(SharedPreferencesKeys.isLogin);
     if (isLogin == null || isLogin == true) {

@@ -8,7 +8,6 @@ import 'package:vv_oa/entity/login_entity.dart';
 import 'package:vv_oa/event/login_event.dart';
 import 'package:vv_oa/page/vv_oa_page.dart';
 import 'package:vv_oa/util/DataUtils.dart';
-import 'package:vv_oa/util/PageRouteUtils.dart';
 import 'package:vv_oa/util/dialog.dart';
 import 'package:vv_oa/util/shared_preferences.dart';
 import 'package:vv_oa/util/toast.dart';
@@ -87,8 +86,12 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
       _controller.forward();
     }).doOnDone(() {
       _controller.reverse();
-    }).doOnData((r){
-      var re = LoginEntity.fromJson(r);
+    }).doOnCancel(() {
+      print("======cancel======");
+    }).listen((value) {
+      //success
+      print("======listen======");
+      var re = LoginEntity.fromJson(value);
       if(re.code == VHttpStatus.statusOk){
         Toast.show(re.message, context, type: Toast.SUCCESS);
         sp.putBool(SharedPreferencesKeys.isLogin, true);
@@ -100,11 +103,6 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
           }));
         });
       }
-    }).doOnCancel(() {
-      print("======cancel======");
-    }).listen((_) {
-      //success
-      print("======listen======");
     }, onError: (e) {
       //error
       dispatchFailure(context, e);

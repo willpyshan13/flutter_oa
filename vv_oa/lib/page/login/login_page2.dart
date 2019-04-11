@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:vv_oa/constant/constants.dart';
 import 'package:vv_oa/event/login_event.dart';
 import 'package:vv_oa/http/api.dart';
-import 'package:vv_oa/http/http_util_with_cookie.dart';
+import 'package:vv_oa/http/default_http_util_with_cookie.dart';
 import 'package:vv_oa/util/DataUtils.dart';
 
 //登录 键盘遮挡问题还没有解决 0_0
-///自己封装的 网络请求库
+///自己封装的 网络请求库,不使用
 class LoginPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -161,18 +161,18 @@ class LoginPageState extends State<LoginPage> {
     map['password'] = password;
     map['repassword'] = password;
 
-    HttpUtil.post(
-        Api.REGISTER,
-        (data) async {
-//          DataUtils.saveLoginInfo(name).then((r) {
-//            Constants.eventBus.fire(LoginEvent());
-//            Navigator.of(context).pop();
-//          });
-        },
-        params: map,
-        errorCallback: (msg) {
-          _showMessage(msg);
-        });
+//    HttpUtil.post(
+//        Api.REGISTER,
+//        (data) async {
+////          DataUtils.saveLoginInfo(name).then((r) {
+////            Constants.eventBus.fire(LoginEvent());
+////            Navigator.of(context).pop();
+////          });
+//        },
+//        params: map,
+//        errorCallback: (msg) {
+//          _showMessage(msg);
+//        });
   }
 
   void _showMessage(String msg) {
