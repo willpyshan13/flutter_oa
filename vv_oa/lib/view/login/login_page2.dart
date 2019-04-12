@@ -132,7 +132,7 @@ class LoginPageState extends State<LoginPage> {
     map['password'] = password;
 
     HttpUtil.post(
-        Api.LOGIN,
+        Api.login,
         (data) async {
 //          DataUtils.saveLoginInfo(name).then((r) {
 //            Constants.eventBus.fire(LoginEvent());

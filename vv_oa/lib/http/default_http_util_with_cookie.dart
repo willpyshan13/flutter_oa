@@ -93,7 +93,7 @@ class HttpUtil {
       data = map['data'];
 
       //报存登录接口的cookie,写在这里有些不优雅(0-0)
-      if(url.contains(Api.LOGIN)){
+      if(url.contains(Api.login)){
         SharedPreferences sp = await SharedPreferences.getInstance();
         sp.setString("cookie", res.headers['set-cookie']);
       }

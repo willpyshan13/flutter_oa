@@ -74,7 +74,7 @@ class ArticleListPageState extends State<ArticleListPage>
   }
 
   void _getArticleList() {
-    String url = Api.FLOW_OVERVIEW;
+    String url = Api.flowOverview;
     url += "$curPage/json";
     map['cid'] = widget.id;
     HttpUtil.get(url, (data) {

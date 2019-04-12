@@ -19,3 +19,13 @@ Future _post(String url, Map<String, dynamic> params) async {
   var response = await dio.post(url, data: params);
   return response.data;
 }
+
+Observable postNoParams(String url) =>
+    Observable.fromFuture(_postNoParams(url)).asBroadcastStream();
+
+
+Future _postNoParams(String url) async {
+  var response = await dio.post(url);
+  return response.data;
+}
+

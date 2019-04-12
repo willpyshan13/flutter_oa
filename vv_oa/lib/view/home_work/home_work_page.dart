@@ -1,42 +1,73 @@
+import 'dart:convert';
+
+import 'package:dartin/dartin.dart';
 import 'package:flutter/material.dart';
+import 'package:provide/provide.dart';
 import 'package:vv_oa/constant/global_config.dart';
-import 'package:vv_oa/constant/work_item.dart';
+import 'package:vv_oa/util/widgetutils.dart';
+import 'package:vv_oa/view/base/base.dart';
 import 'package:vv_oa/view/home_work/work_finance_card.dart';
 import 'package:vv_oa/view/home_work/work_management_card.dart';
 import 'package:vv_oa/view/home_work/work_attendance_card.dart';
-import 'package:vv_oa/view/login/login_page.dart';
 import 'package:vv_oa/util/DataUtils.dart';
-//工作
-class HomeWorkPage extends StatefulWidget {
+import 'package:vv_oa/viewmodel/home_work_viewmodel.dart';
+///工作页面
+///创建一个provider界面，可以对数据进行刷新操作
+class HomeWorkPage extends PageProvideNode {
+
+  HomeWorkPage() {
+    mProviders.provideValue(inject<HomeWorkViewModel>());
+  }
+
   @override
-  State<StatefulWidget> createState() {
-    return HomeWorkPageState();
+  Widget buildContent(BuildContext context) {
+    // TODO: implement buildContent
+    return _HomeWorkContentPage();
   }
 }
 
-class HomeWorkPageState extends State<HomeWorkPage> {
+class _HomeWorkContentPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _HomeWorkPageState();
+  }
+}
 
+class _HomeWorkPageState extends State<_HomeWorkContentPage> {
+  HomeWorkViewModel _homeWorkViewModel;
   @override
   void initState() {
     super.initState();
-//    _getTree();
   }
 
-  _checkLogin(){
-    DataUtils.getIsLogin().then((isLogin) {
-      if (!isLogin) {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return LoginPage("VVOA");
-        }));
-      } else {
-        print('已登录!');
-      }
+  void _getCurrentUser() {
+    final currentUser = _homeWorkViewModel
+        .getCurrentUser()
+        .doOnListen(() {})
+        .doOnCancel(() {
+    }).listen((t) {
+      print("======listen======");
+      print(_homeWorkViewModel.userInfoEntity.data.permissionList.length);
+      DataUtils.saveUserInfo(json.encode(_homeWorkViewModel.userInfoEntity)).then((r) {
+        print("======save success======");
+      });
+      setState(() {
+
+      });
+    }, onError: (e) {
+      //error
+      dispatchFailure(context, e);
     });
+    _homeWorkViewModel.plus(currentUser);
   }
-
 
   @override
   Widget build(BuildContext context) {
+    _homeWorkViewModel = Provide.value<HomeWorkViewModel>(context);
+    if(_homeWorkViewModel.userInfoEntity==null){
+       _getCurrentUser();
+    }
+
     return new Scaffold(
         body: new SingleChildScrollView(
           child: new Container(
@@ -51,20 +82,4 @@ class HomeWorkPageState extends State<HomeWorkPage> {
           ),
         ));
   }
-  }
-
-    ListTile buildItem(index) {
-          return ListTile(
-            title:  Text(WorkItem.workItem[index].toString()), // item 标题
-            leading: Icon(Icons.access_time), // item 前置图标
-            trailing: Icon(Icons.keyboard_arrow_right),// item 后置图标
-            isThreeLine:false,  // item 是否三行显示
-            dense:true,                // item 直观感受是整体大小
-            contentPadding: EdgeInsets.all(10.0),// item 内容内边距
-            enabled:true,
-            onTap:(){print('点击:$index');},// item onTap 点击事件
-            onLongPress:(){print('长按:$index');},// item onLongPress 长按事件
-            selected:false,     // item 是否选中状态
-          );
-
   }

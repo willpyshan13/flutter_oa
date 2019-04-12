@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:vv_oa/constant/constants.dart';
+import 'package:vv_oa/entity/user_info_entity.dart';
 import 'package:vv_oa/event/login_event.dart';
 import 'package:vv_oa/view/about/about_us_page.dart';
 import 'package:vv_oa/view/login/login_page.dart';
 import 'package:vv_oa/util/DataUtils.dart';
 import 'package:vv_oa/util/PageRouteUtils.dart';
 
+///个人中心界面
 class HomePersonInfoPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -13,8 +17,10 @@ class HomePersonInfoPage extends StatefulWidget {
   }
 }
 
-class HomePersonInfoPageState extends State<HomePersonInfoPage> with WidgetsBindingObserver {
+class HomePersonInfoPageState extends State<HomePersonInfoPage>
+    with WidgetsBindingObserver {
   String userName;
+  UserInfoEntity _userInfoEntity;
 
   @override
   void initState() {
@@ -27,10 +33,18 @@ class HomePersonInfoPageState extends State<HomePersonInfoPage> with WidgetsBind
   }
 
   void _getName() async {
-    DataUtils.getUserName().then((username) {
+    DataUtils.getUserNo().then((username) {
       setState(() {
         userName = username;
-        print('name:' + userName.toString());
+      });
+    });
+
+    DataUtils.getUserInfo().then((info) {
+      setState(() {
+//        print('getUserInfo');
+        if (info != null) {
+          _userInfoEntity = UserInfoEntity.fromJson(json.decode(info));
+        }
       });
     });
   }
@@ -82,16 +96,15 @@ class HomePersonInfoPageState extends State<HomePersonInfoPage> with WidgetsBind
             Icon(Icons.chevron_right, color: Theme.of(context).accentColor),
         onTap: () async {
           DataUtils.clearLoginInfo();
-          setState(() {
-            userName = null;
-          },);
-          ///退出登录，直接回到登录页面
-//          Navigator.of(context).pop();
-//          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-//            return LoginPage("VVOA");
-//          }));
+          setState(
+            () {
+              userName = null;
+            },
+          );
 
-          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
+          ///退出登录，直接回到登录页面
+          Navigator.of(context)
+              .pushReplacement(MaterialPageRoute(builder: (context) {
             return LoginPage("VVOA");
           }));
         });

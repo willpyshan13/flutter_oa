@@ -6,23 +6,32 @@ import 'dart:async';
 ///@createTime 2019-4-11
 class DataUtils {
   static const String isLogin = "isLogin";
+  ///用户工号
   static const String username = "userName";
   static const String passWord = "password";
   static const String token = "token";
+  ///用户权限
   static const String currentAuthority = "currentAuthority";
 
-  // 保存用户登录信息，data中包含了userName
+  ///用户真实信息
+  static const String userInfo = "userInfo";
+
+  /// 保存用户登录信息，data中包含了userName
   static Future saveLoginInfo(String userName,String password,String tokens,String authority) async {
-    print('isLogin');
     SharedPreferences sp = await SharedPreferences.getInstance();
     await sp.setString(username, userName);
     await sp.setString(passWord, password);
     await sp.setString(token, tokens);
     await sp.setString(currentAuthority, authority);
     await sp.setBool(isLogin, true);
-
   }
 
+  static Future saveUserInfo(String userName) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    await sp.setString(userInfo, userName);
+  }
+
+  ///清除登录信息
   static Future clearLoginInfo() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.setBool(isLogin, false);
@@ -30,21 +39,31 @@ class DataUtils {
     return sp.clear();
   }
 
-  static Future<String> getUserName() async {
+  ///获取用户工号，登录用
+  static Future<String> getUserNo() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     return sp.getString(username);
   }
 
+  ///获取用户信息，包含全部权限
+  static Future<String> getUserInfo() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    return sp.getString(userInfo);
+  }
+
+  ///获取用户token
   static Future<String> getToken() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     return sp.getString(token);
   }
 
+  ///获取用户密码
   static Future<String> getPassword() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     return sp.getString(passWord);
   }
 
+  ///用于判断是否登录
   static Future<bool> getIsLogin() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     bool b = sp.getBool(isLogin);
@@ -63,7 +82,6 @@ class DataUtils {
   static Future<DataUtils> get instance async {
     return await getInstance();
   }
-
 
   Future<bool> putString(String key, String value) {
     if (_beforeCheck()) return null;

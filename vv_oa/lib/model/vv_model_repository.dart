@@ -26,4 +26,11 @@ class VVModelRepository {
     }
     return _remote.getFlowOverview();
   }
+
+  Observable getCurrentUser() {
+    if(_sp!=null){
+      token = "Bearer "+_sp.getString(DataUtils.token);
+    }
+    return _remote.getCurrentUser();
+  }
 }

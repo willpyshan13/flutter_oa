@@ -4,10 +4,7 @@ import 'package:dartin/dartin.dart';
 import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import 'package:vv_oa/constant/constants.dart';
-import 'package:vv_oa/util/DataUtils.dart';
 import 'package:vv_oa/util/widgetutils.dart';
-import 'package:vv_oa/http/api.dart';
-import 'package:vv_oa/http/default_http_util_with_cookie.dart';
 import 'package:vv_oa/view/item/article_item.dart';
 import 'package:vv_oa/view/base/base.dart';
 import 'package:vv_oa/widget/end_line.dart';
@@ -29,11 +26,11 @@ class HomeMessagePage extends PageProvideNode {
 class _HomeContentPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return HomeMessagePageState();
+    return _HomeMessagePageState();
   }
 }
 
-class HomeMessagePageState extends State<_HomeContentPage> {
+class _HomeMessagePageState extends State<_HomeContentPage> {
   HomeMessageViewModel _homeMessageViewModel;
   List listData = List();
   var bannerData;
@@ -44,7 +41,7 @@ class HomeMessagePageState extends State<_HomeContentPage> {
   TextStyle titleTextStyle = TextStyle(fontSize: 15.0);
   TextStyle subtitleTextStyle = TextStyle(color: Colors.blue, fontSize: 12.0);
 
-  HomeMessagePageState() {
+  _HomeMessagePageState() {
     _controller.addListener(() {
       var maxScroll = _controller.position.maxScrollExtent;
       var pixels = _controller.position.pixels;
@@ -85,7 +82,7 @@ class HomeMessagePageState extends State<_HomeContentPage> {
   @override
   Widget build(BuildContext context) {
     _homeMessageViewModel = Provide.value<HomeMessageViewModel>(context);
-    _getHomeArticleList();
+//    _getHomeArticleList();
     if (listData == null) {
       return Center(
         child: CircularProgressIndicator(),

@@ -8,7 +8,6 @@ import 'package:vv_oa/event/login_event.dart';
 import 'package:vv_oa/view/vv_oa_page.dart';
 import 'package:vv_oa/util/DataUtils.dart';
 import 'package:vv_oa/util/dialog.dart';
-import 'package:vv_oa/util/shared_preferences.dart';
 import 'package:vv_oa/util/toast.dart';
 import 'package:vv_oa/util/widgetutils.dart';
 import 'package:vv_oa/view/base/base.dart';
@@ -20,7 +19,6 @@ import 'package:provide/provide.dart';
 ///
 class LoginPage extends PageProvideNode {
   final String title;
-
 
   LoginPage(this.title) {
     mProviders.provideValue(inject<LoginViewModel>(params: [title]));
@@ -41,7 +39,6 @@ class _LoginContentPage extends StatefulWidget {
 
 class _HomeContentState extends State<_LoginContentPage> with SingleTickerProviderStateMixin<_LoginContentPage> implements Presenter {
 
-  SpUtil sp;
   LoginViewModel _viewModel;
   TextEditingController _nameController = TextEditingController(text: '666666');
   TextEditingController _passwordController = TextEditingController(text: '123456');
@@ -59,10 +56,6 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
       ..addListener(() {
         _viewModel.btnWidth = _animation.value;
       });
-  }
-
-  initPreference() async {
-    sp = await SpUtil.getInstance();
   }
 
   @override
@@ -89,14 +82,10 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
       print("======cancel======");
     }).listen((value) {
       //success
-      print("======listen======");
-      var re = LoginEntity.fromJson(value);
-      if(re.code == VHttpStatus.statusOk){
-        Toast.show(re.message, context, type: Toast.SUCCESS);
-        sp.putBool(DataUtils.isLogin, true);
-        DataUtils.saveLoginInfo(name,password,re.data,re.currentAuthority).then((r) {
+      if(_viewModel.loginEntity.code == VHttpStatus.statusOk){
+        Toast.show(_viewModel.loginEntity.message, context, type: Toast.SUCCESS);
+        DataUtils.saveLoginInfo(name,password,_viewModel.loginEntity.data,_viewModel.loginEntity.currentAuthority).then((r) {
           Constants.eventBus.fire(LoginEvent());
-//          Navigator.of(context).pop(true);
           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
             return VVOAApp();
           }));
@@ -113,7 +102,6 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
   Widget build(BuildContext context) {
     _viewModel = Provide.value<LoginViewModel>(context);
     print("--------build--------");
-    initPreference();
     return Scaffold(
       appBar: AppBar(
         title: Text(_viewModel.title),
