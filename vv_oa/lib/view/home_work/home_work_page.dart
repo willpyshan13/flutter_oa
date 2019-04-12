@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:dartin/dartin.dart';
 import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
+import 'package:vv_oa/constant/constants.dart';
 import 'package:vv_oa/constant/global_config.dart';
+import 'package:vv_oa/event/login_event.dart';
 import 'package:vv_oa/util/widgetutils.dart';
 import 'package:vv_oa/view/base/base.dart';
 import 'package:vv_oa/view/home_work/work_finance_card.dart';
@@ -50,6 +52,7 @@ class _HomeWorkPageState extends State<_HomeWorkContentPage> {
       print(_homeWorkViewModel.userInfoEntity.data.permissionList.length);
       DataUtils.saveUserInfo(json.encode(_homeWorkViewModel.userInfoEntity)).then((r) {
         print("======save success======");
+        Constants.eventBus.fire(LoginEvent());
       });
       setState(() {
 

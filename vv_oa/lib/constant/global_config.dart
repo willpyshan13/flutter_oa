@@ -35,6 +35,12 @@ class GlobalConfig {
   static String commonOutReason = "外出事由";
   static String commonOvertimeReason = "加班原因";
 
+  static String commonPhone = "电话";
+  static String commonEmail = "邮箱";
+  static String commonUsername = "姓名";
+  static String commonCompany = "公司";
+  static String commonWorkNo = "工号";
+
   static String commonDepartmentNo = "部门编号";
   static String commonDepartment = "所在部门";
 

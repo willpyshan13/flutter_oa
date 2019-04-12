@@ -2,23 +2,23 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:vv_oa/constant/constants.dart';
+import 'package:vv_oa/constant/global_config.dart';
 import 'package:vv_oa/entity/user_info_entity.dart';
 import 'package:vv_oa/event/login_event.dart';
 import 'package:vv_oa/view/about/about_us_page.dart';
 import 'package:vv_oa/view/login/login_page.dart';
 import 'package:vv_oa/util/DataUtils.dart';
-import 'package:vv_oa/util/PageRouteUtils.dart';
 
 ///个人中心界面
 class HomePersonInfoPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return HomePersonInfoPageState();
+    return _HomePersonInfoPageState();
   }
 }
 
-class HomePersonInfoPageState extends State<HomePersonInfoPage>
-    with WidgetsBindingObserver {
+///个人中心内部用，不给外部调用
+class _HomePersonInfoPageState extends State<HomePersonInfoPage> with WidgetsBindingObserver {
   String userName;
   UserInfoEntity _userInfoEntity;
 
@@ -41,7 +41,6 @@ class HomePersonInfoPageState extends State<HomePersonInfoPage>
 
     DataUtils.getUserInfo().then((info) {
       setState(() {
-//        print('getUserInfo');
         if (info != null) {
           _userInfoEntity = UserInfoEntity.fromJson(json.decode(info));
         }
@@ -51,35 +50,29 @@ class HomePersonInfoPageState extends State<HomePersonInfoPage>
 
   @override
   Widget build(BuildContext context) {
-    Widget image = Image.asset(
-      'images/ic_launcher_round.png',
-      width: 100.0,
-      height: 100.0,
+
+    Widget icon = Image.asset(
+      'images/ic_head_img.png',
+      width: 80.0,
+      height: 80.0,
     );
 
+    TextStyle _styleGray = TextStyle(color: Colors.grey,fontSize: 15);
+    TextStyle _styleDark = TextStyle(color: Colors.black,fontSize: 15);
+    double _leftWidth = 90.0;
     Widget raisedButton = RaisedButton(
       child: Text(
-        userName == null ? "请登录" : userName,
+        userName == null ? "请登录" : "退出登录",
         style: TextStyle(color: Colors.white),
       ),
       color: Theme.of(context).accentColor,
       onPressed: () async {
-        //登录
-        await DataUtils.getIsLogin().then((isLogin) {
-          if (!isLogin) {
-            Navigator.of(context).pop();
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return LoginPage("VVOA");
-            }));
-          } else {
-            print('已登录!');
-          }
-        });
+        await _loginOrLogout(context);
       },
     );
 
     Widget listAbout = ListTile(
-        leading: const Icon(Icons.info),
+        leading: const Icon(Icons.ac_unit),
         title: const Text('关于我们'),
         trailing:
             Icon(Icons.chevron_right, color: Theme.of(context).accentColor),
@@ -95,28 +88,153 @@ class HomePersonInfoPageState extends State<HomePersonInfoPage>
         trailing:
             Icon(Icons.chevron_right, color: Theme.of(context).accentColor),
         onTap: () async {
-          DataUtils.clearLoginInfo();
-          setState(
-            () {
-              userName = null;
-            },
-          );
 
-          ///退出登录，直接回到登录页面
-          Navigator.of(context)
-              .pushReplacement(MaterialPageRoute(builder: (context) {
-            return LoginPage("VVOA");
-          }));
         });
 
     return ListView(
       padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
       children: <Widget>[
-        image,
-        raisedButton,
+        icon,
+        Container(
+          color: GlobalConfig.cardBackgroundColor,
+          child: Row(
+            children: <Widget>[
+              Container(child: Text(
+                GlobalConfig.commonUsername,
+                softWrap: true,
+                style: _styleGray,
+                textAlign: TextAlign.right,
+              ),
+                width: _leftWidth,
+              ),
+              SizedBox(width: 5,),
+              Text(
+                _userInfoEntity==null?"":_userInfoEntity.data.username,
+                softWrap: true,
+                style: _styleDark,
+                textAlign: TextAlign.left,
+              )
+            ],
+          ),
+        ),
+        Container(
+          color: GlobalConfig.cardBackgroundColor,
+          child: Row(
+            children: <Widget>[
+              Container(child: Text(
+                GlobalConfig.commonPhone,
+                softWrap: true,
+                style: _styleGray,
+                textAlign: TextAlign.right,
+              ),
+                width: _leftWidth,
+              ),
+              SizedBox(width: 5,),
+              Text(
+                _userInfoEntity==null?"":_userInfoEntity.data.mobile,
+                softWrap: true,
+                style: _styleDark,
+                textAlign: TextAlign.left,
+              )
+            ],
+          ),
+        ),
+        Container(
+          color: GlobalConfig.cardBackgroundColor,
+          child: Row(
+            children: <Widget>[
+              Container(child: Text(
+                GlobalConfig.commonEmail,
+                softWrap: true,
+                style: _styleGray,
+                textAlign: TextAlign.right,
+              ),
+                width: _leftWidth,
+              ),
+              SizedBox(width: 5,),
+              Text(
+                _userInfoEntity==null?"":_userInfoEntity.data.email,
+                softWrap: true,
+                style: _styleDark,
+                textAlign: TextAlign.left,
+              )
+            ],
+          ),
+        ),
+        Container(
+          color: GlobalConfig.cardBackgroundColor,
+          child: Row(
+            children: <Widget>[
+              Container(child: Text(
+                GlobalConfig.commonCompany,
+                softWrap: true,
+                style: _styleGray,
+                textAlign: TextAlign.right,
+              ),
+                width: _leftWidth,
+              ),
+              SizedBox(width: 5,),
+              Text(
+                _userInfoEntity==null?"":_userInfoEntity.data.company,
+                softWrap: true,
+                style: _styleDark,
+                textAlign: TextAlign.left,
+              )
+            ],
+          ),
+        ),
+        Container(
+          color: GlobalConfig.cardBackgroundColor,
+          child: Row(
+            children: <Widget>[
+              Container(child: Text(
+                GlobalConfig.commonWorkNo,
+                softWrap: true,
+                style: _styleGray,
+                textAlign: TextAlign.right,
+              ),
+                width: _leftWidth,
+              ),
+              SizedBox(width: 5,),
+              Text(
+                _userInfoEntity==null?"":_userInfoEntity.data.workNumber,
+                softWrap: true,
+                style: _styleDark,
+                textAlign: TextAlign.left,
+              )
+            ],
+          ),
+        ),
         listAbout,
-        listLogout,
+        raisedButton,
       ],
     );
+  }
+
+  Future _loginOrLogout(BuildContext context) async {
+    if(userName == null){
+      //登录
+      await DataUtils.getIsLogin().then((isLogin) {
+        if (!isLogin) {
+          Navigator.of(context).pop();
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return LoginPage("VVOA");
+          }));
+        } else {
+          print('已登录!');
+        }
+      });
+    }else{
+      DataUtils.clearLoginInfo();
+      setState(() {
+          userName = null;
+        },
+      );
+      ///退出登录，直接回到登录页面
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) {
+        return LoginPage("VVOA");
+      }));
+    }
   }
 }

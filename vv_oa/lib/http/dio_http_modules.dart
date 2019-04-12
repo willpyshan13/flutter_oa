@@ -4,7 +4,7 @@ import 'package:vv_oa/http/api.dart';
 String token = "";
 
 final Dio dio = Dio()
-  ..options = BaseOptions(baseUrl: Api.BaseUrl, connectTimeout: 30, receiveTimeout: 30)
+  ..options = BaseOptions(baseUrl: Api.BaseUrl, connectTimeout: 30*1000, receiveTimeout: 30*1000)
   ..interceptors.add(AuthInterceptor())
   ..interceptors.add(LogInterceptor(responseBody: true, requestBody: true));
 

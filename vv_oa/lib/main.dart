@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:vv_oa/constant/colors.dart';
 import 'package:vv_oa/view/login/login_page.dart';
 import 'package:vv_oa/view/vv_oa_page.dart';
 import 'package:vv_oa/http/app_module.dart';
 import 'package:vv_oa/util/DataUtils.dart';
 
-const int ThemeColor = 0xFFC91B3A;
 DataUtils sp;
 
 main() async {
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'title',
       theme: new ThemeData(
-        primaryColor: Color(ThemeColor),
+        primaryColor: Color(AppColors.appThemeColor),
         backgroundColor: Color(0xFFEFEFEF),
         accentColor: Color(0xFF888888),
         textTheme: TextTheme(
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
           body1: TextStyle(color: Color(0xFF888888), fontSize: 16.0),
         ),
         iconTheme: IconThemeData(
-          color: Color(ThemeColor),
+          color: Color(AppColors.appThemeColor),
           size: 35.0,
         ),
       ),
