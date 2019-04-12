@@ -50,7 +50,6 @@ class _HomePersonInfoPageState extends State<HomePersonInfoPage> with WidgetsBin
 
   @override
   Widget build(BuildContext context) {
-
     Widget icon = Image.asset(
       'images/ic_head_img.png',
       width: 80.0,

@@ -1,4 +1,4 @@
-class LoginEntity {
+class CommonResponse {
 	int code;
 	String data;
 	bool success;
@@ -6,9 +6,9 @@ class LoginEntity {
 	dynamic status;
 	String currentAuthority;
 
-	LoginEntity({this.code, this.data, this.success, this.message, this.status, this.currentAuthority});
+	CommonResponse({this.code, this.data, this.success, this.message, this.status, this.currentAuthority});
 
-	LoginEntity.fromJson(Map<String, dynamic> json) {
+	CommonResponse.fromJson(Map<String, dynamic> json) {
 		code = json['code'];
 		data = json['data'];
 		success = json['success'];

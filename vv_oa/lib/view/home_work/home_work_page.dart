@@ -42,6 +42,7 @@ class _HomeWorkPageState extends State<_HomeWorkContentPage> {
     super.initState();
   }
 
+  ///获取当前用户权限，以及用户信息
   void _getCurrentUser() {
     final currentUser = _homeWorkViewModel
         .getCurrentUser()

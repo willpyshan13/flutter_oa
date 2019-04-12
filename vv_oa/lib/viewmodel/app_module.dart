@@ -5,16 +5,19 @@ import 'package:vv_oa/viewmodel/home_work_viewmodel.dart';
 import 'package:vv_oa/viewmodel/login_viewmodel.dart';
 import 'package:vv_oa/viewmodel/home_message_viewmodel.dart';
 import 'package:dartin/dartin.dart';
+import 'package:vv_oa/viewmodel/overtime_viewmodel.dart';
 
 const testScope = DartInScope('test');
 
 ///提供model给main注册
-///
+///管理所有的module
 final viewModelModule = Module([
   factory<LoginViewModel>(
       ({params}) => LoginViewModel(params.get(0), get<VVModelRepository>())),
   factory<HomeWorkViewModel>(
           ({params}) => HomeWorkViewModel(params.get(0), get<VVModelRepository>())),
+  factory<OvertimeViewModel>(
+          ({params}) => OvertimeViewModel(params.get(0), get<VVModelRepository>())),
   factory<HomeMessageViewModel>(({params}) =>
       HomeMessageViewModel(params.get(0), get<VVModelRepository>())),
 ])

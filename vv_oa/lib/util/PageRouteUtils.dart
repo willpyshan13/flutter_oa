@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vv_oa/view/webview/article_detail_page.dart';
 
+///跳转到网页
 routeWebView(BuildContext context, String title, String url) {
-//  Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-//    return new ArticleDetailPage(title: title, url: url);
-//  },));
-
   Navigator.of(context).push(new PageRouteBuilder(
       opaque: false,
       pageBuilder: (BuildContext context, _, __) {
@@ -22,6 +19,7 @@ routeWebView(BuildContext context, String title, String url) {
       }));
 }
 
+///正常跳转网页
 routePagerNavigator(BuildContext context, Widget v) {
   Navigator.of(context).push(new PageRouteBuilder(
       opaque: false,
@@ -37,4 +35,11 @@ routePagerNavigator(BuildContext context, Widget v) {
           ),
         );
       }));
+}
+
+///跳转页面，销毁原先页面
+routePagerAndReplace(BuildContext context,Widget v){
+  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
+    return v;
+  }));
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vv_oa/constant/colors.dart';
 import 'package:vv_oa/view/login/login_page.dart';
 import 'package:vv_oa/view/vv_oa_page.dart';
-import 'package:vv_oa/http/app_module.dart';
+import 'package:vv_oa/viewmodel/app_module.dart';
 import 'package:vv_oa/util/DataUtils.dart';
 
 DataUtils sp;

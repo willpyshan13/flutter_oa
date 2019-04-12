@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:vv_oa/constant/http_status.dart';
-import 'package:vv_oa/entity/login_entity.dart';
+import 'package:vv_oa/constant/v_http_status.dart';
+import 'package:vv_oa/entity/common_response.dart';
 import 'package:vv_oa/event/login_event.dart';
 import 'package:vv_oa/model/vv_model_repository.dart';
 import 'package:rxdart/rxdart.dart';
@@ -17,7 +17,7 @@ class LoginViewModel extends ChangeNotifier {
   bool _loading = false;
   String _response = "";
 
-  LoginEntity loginEntity;
+  CommonResponse loginEntity;
 
   final String title;
 
@@ -57,7 +57,7 @@ class LoginViewModel extends ChangeNotifier {
       .login(username, password)
       .doOnData((r){
           response = r.toString();
-          loginEntity = LoginEntity.fromJson(r);
+          loginEntity = CommonResponse.fromJson(r);
       })
       .doOnError((e, stacktrace) {
         if (e is DioError) {

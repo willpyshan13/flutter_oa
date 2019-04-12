@@ -1,24 +1,51 @@
+import 'package:dartin/dartin.dart';
 import 'package:flutter/material.dart';
+import 'package:provide/provide.dart';
 import 'package:vv_oa/constant/global_config.dart';
+import 'package:vv_oa/constant/v_http_status.dart';
+import 'package:vv_oa/entity/extra_work_entity.dart';
 import 'package:vv_oa/util/PageRouteUtils.dart';
+import 'package:vv_oa/util/toast.dart';
+import 'package:vv_oa/util/widgetutils.dart';
+import 'package:vv_oa/view/base/base.dart';
 import 'package:vv_oa/view/home_work/attendance/attendance_overtime_detail.dart';
 import 'package:vv_oa/view/home_work/attendance/attendance_widget.dart';
+import 'package:vv_oa/viewmodel/overtime_viewmodel.dart';
 
-///加班
-class AttendanceOvertimePage extends StatefulWidget {
+///加班页面
+///@author pengyushan
+///@createTime 2019-4-12
+class AttendanceOvertimePage extends PageProvideNode {
+  AttendanceOvertimePage() {
+    mProviders.provideValue(inject<OvertimeViewModel>());
+  }
+
+  @override
+  Widget buildContent(BuildContext context) {
+    // TODO: implement buildContent
+    return _AttendanceOvertimePage();
+  }
+}
+
+class _AttendanceOvertimePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _AttendanceOvertimePageState();
   }
 }
 
-class _AttendanceOvertimePageState extends State<AttendanceOvertimePage> {
+class _AttendanceOvertimePageState extends State<_AttendanceOvertimePage> {
+  OvertimeViewModel _overtimeViewModel;
+  ExtraWorkEntity _extraWorkEntity;
+  TextEditingController _nameController = TextEditingController(text: '666666');
+  TextEditingController _passwordController = TextEditingController(text: '123456');
   DateTime _startDate = DateTime.now();
   TimeOfDay _startTime = TimeOfDay.now();
 
   DateTime _endDate = DateTime.now();
   TimeOfDay _endTime = TimeOfDay.now();
 
+  ///选择日期对话框，目前使用的是安卓样式，需要改成ios样式
   Future<void> _selectDate(BuildContext context, int type) async {
     final DateTime picked = await showDatePicker(
         context: context,
@@ -27,21 +54,52 @@ class _AttendanceOvertimePageState extends State<AttendanceOvertimePage> {
         lastDate: DateTime(2101));
     if (picked != null && picked != _startDate)
       print("data selectied :${_startDate.toString()}");
-    _selectTime(context, type);
-    setState(() {
-      if (type == 0) {
-        _startDate = picked;
-      } else {
-        _endDate = picked;
-      }
+      _selectTime(context, type);
+      setState(() {
+        if (type == 0) {
+           _startDate = picked;
+        } else {
+           _endDate = picked;
+        }
     });
 
     if (picked == null) _startDate = DateTime.now();
   }
 
+  ///生成请求体，提交加班
+  ExtraWorkEntity getExtraWorkEntity() {
+    List<String> copyToList = List();
+    copyToList.add("1115800549863620608");
+    _extraWorkEntity = ExtraWorkEntity(copyTo:copyToList,extraWorkType:1,extraWorkReason:'ddd',
+        extraWorkEndTime:'2019-04-14 16:18:00',extraWorkStartTime:'2019-04-13 16:18:00',extraWorkHours:24);
+    return _extraWorkEntity;
+  }
+
+  ///提交加班申请
+  ///listen 处理返回结果
+  /// onError 处理错误消息
+  void _postExtraWork() {
+    final currentUser = _overtimeViewModel
+        .postExtraWork(getExtraWorkEntity())
+        .listen((t) {
+      if(_overtimeViewModel.commonResponse!=null){
+        if(_overtimeViewModel.commonResponse.code==VHttpStatus.statusOk){
+          routePagerAndReplace(context, new AttendanceOvertimeDetailPage());
+        }
+        Toast.show(_overtimeViewModel.commonResponse.message, context, type: Toast.SUCCESS);
+      }
+
+    }, onError: (e) {
+      //error
+      dispatchFailure(context, e);
+    });
+    _overtimeViewModel.plus(currentUser);
+  }
+
+  ///选择时间对话框，目前使用的是安卓样式，需要改成ios样式
   Future<void> _selectTime(BuildContext context, int type) async {
     final TimeOfDay picked =
-    await showTimePicker(context: context, initialTime: _startTime);
+        await showTimePicker(context: context, initialTime: _startTime);
     if (picked != null && picked != _startTime)
       print("data selectied :${_startTime.toString()}");
     setState(() {
@@ -56,6 +114,7 @@ class _AttendanceOvertimePageState extends State<AttendanceOvertimePage> {
 
   @override
   Widget build(BuildContext context) {
+    _overtimeViewModel = Provide.value<OvertimeViewModel>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(GlobalConfig.vWorkOvertime),
@@ -200,9 +259,9 @@ class _AttendanceOvertimePageState extends State<AttendanceOvertimePage> {
           ),
           new MaterialButton(
             onPressed: () {
-              routePagerNavigator(context, new AttendanceOvertimeDetailPage());
+              _postExtraWork();
             },
-            child: Text("提交",style: TextStyle(color: Colors.white)),
+            child: Text("提交", style: TextStyle(color: Colors.white)),
             // 按钮颜色
             color: Colors.blueAccent,
           )
