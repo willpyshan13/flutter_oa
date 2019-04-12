@@ -83,7 +83,6 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
     }).listen((value) {
       //success
       if(_viewModel.loginEntity.code == VHttpStatus.statusOk){
-        Toast.show(_viewModel.loginEntity.message, context, type: Toast.SUCCESS);
         DataUtils.saveLoginInfo(name,password,_viewModel.loginEntity.data,_viewModel.loginEntity.currentAuthority).then((r) {
           Constants.eventBus.fire(LoginEvent());
           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
@@ -91,6 +90,7 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
           }));
         });
       }
+      Toast.show(_viewModel.loginEntity.message, context, type: Toast.SUCCESS);
     }, onError: (e) {
       //error
       dispatchFailure(context, e);
