@@ -7,7 +7,7 @@ import 'package:vv_oa/util/DataUtils.dart';
 const int ThemeColor = 0xFFC91B3A;
 DataUtils sp;
 
-Future main() async {
+main() async {
   /// DartIn start
   await init();
   sp = await DataUtils.getInstance();
@@ -19,12 +19,13 @@ Future main() async {
 class MyApp extends StatelessWidget {
   showLoginPage() {
      //判断是否登录，没有登录就跳转登录页面
-    bool isLogin = sp.getBool(DataUtils.token);
-    if (isLogin == null || isLogin == true) {
-      return VVOAApp();
-    } else {
+    bool isLogin = sp.getBool(DataUtils.isLogin);
+    if (isLogin == null||(isLogin!=null&&!isLogin)) {
       return LoginPage("VVOA");
+    } else {
+      return VVOAApp();
     }
+
   }
   @override
   Widget build(BuildContext context) {

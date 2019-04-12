@@ -53,6 +53,7 @@ class HomePersonInfoPageState extends State<HomePersonInfoPage> with WidgetsBind
         //登录
         await DataUtils.getIsLogin().then((isLogin) {
           if (!isLogin) {
+            Navigator.of(context).pop();
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
               return LoginPage("VVOA");
             }));

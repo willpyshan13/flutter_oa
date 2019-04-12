@@ -25,6 +25,7 @@ class DataUtils {
 
   static Future clearLoginInfo() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.setBool(isLogin, false);
     print('clean');
     return sp.clear();
   }
@@ -101,7 +102,6 @@ class DataUtils {
     if (_instance == null) {
       _instance = new DataUtils._();
       await _instance._init();
-
     }
     return _instance;
   }
