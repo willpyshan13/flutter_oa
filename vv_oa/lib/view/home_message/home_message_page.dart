@@ -85,7 +85,7 @@ class HomeMessagePageState extends State<_HomeContentPage> {
   @override
   Widget build(BuildContext context) {
     _homeMessageViewModel = Provide.value<HomeMessageViewModel>(context);
-//    _getHomeArticleList();
+    _getHomeArticleList();
     if (listData == null) {
       return Center(
         child: CircularProgressIndicator(),

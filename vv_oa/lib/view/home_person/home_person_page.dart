@@ -86,10 +86,14 @@ class HomePersonInfoPageState extends State<HomePersonInfoPage> with WidgetsBind
             userName = null;
           },);
           ///退出登录，直接回到登录页面
-          routePagerNavigator(context, new LoginPage("VVOA"));
+//          Navigator.of(context).pop();
 //          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
 //            return LoginPage("VVOA");
 //          }));
+
+          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
+            return LoginPage("VVOA");
+          }));
         });
 
     return ListView(

@@ -96,8 +96,8 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
         sp.putBool(DataUtils.isLogin, true);
         DataUtils.saveLoginInfo(name,password,re.data,re.currentAuthority).then((r) {
           Constants.eventBus.fire(LoginEvent());
-          Navigator.of(context).pop(true);
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+//          Navigator.of(context).pop(true);
+          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
             return VVOAApp();
           }));
         });
