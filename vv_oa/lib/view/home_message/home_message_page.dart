@@ -9,11 +9,11 @@ import 'package:vv_oa/view/item/article_item.dart';
 import 'package:vv_oa/view/base/base.dart';
 import 'package:vv_oa/widget/end_line.dart';
 import 'package:vv_oa/widget/slide_view.dart';
-import 'package:vv_oa/viewmodel/home_message_viewmodel.dart';
+import 'package:vv_oa/viewmodel/home_message_provider.dart';
 
 class HomeMessagePage extends PageProvideNode {
   HomeMessagePage() {
-    mProviders.provideValue(inject<HomeMessageViewModel>());
+    mProviders.provideValue(inject<HomeMessageProvider>());
   }
 
   @override
@@ -31,7 +31,7 @@ class _HomeContentPage extends StatefulWidget {
 }
 
 class _HomeMessagePageState extends State<_HomeContentPage> {
-  HomeMessageViewModel _homeMessageViewModel;
+  HomeMessageProvider _homeMessageViewModel;
   List listData = List();
   var bannerData;
   var curPage = 0;
@@ -81,7 +81,7 @@ class _HomeMessagePageState extends State<_HomeContentPage> {
 
   @override
   Widget build(BuildContext context) {
-    _homeMessageViewModel = Provide.value<HomeMessageViewModel>(context);
+    _homeMessageViewModel = Provide.value<HomeMessageProvider>(context);
 //    _getHomeArticleList();
     if (listData == null) {
       return Center(

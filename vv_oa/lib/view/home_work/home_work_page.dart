@@ -12,13 +12,13 @@ import 'package:vv_oa/view/home_work/work_finance_card.dart';
 import 'package:vv_oa/view/home_work/work_management_card.dart';
 import 'package:vv_oa/view/home_work/work_attendance_card.dart';
 import 'package:vv_oa/util/DataUtils.dart';
-import 'package:vv_oa/viewmodel/home_work_viewmodel.dart';
+import 'package:vv_oa/viewmodel/home_work_provider.dart';
 ///工作页面
 ///创建一个provider界面，可以对数据进行刷新操作
 class HomeWorkPage extends PageProvideNode {
 
   HomeWorkPage() {
-    mProviders.provideValue(inject<HomeWorkViewModel>());
+    mProviders.provideValue(inject<HomeWorkProvider>());
   }
 
   @override
@@ -36,7 +36,7 @@ class _HomeWorkContentPage extends StatefulWidget {
 }
 
 class _HomeWorkPageState extends State<_HomeWorkContentPage> {
-  HomeWorkViewModel _homeWorkViewModel;
+  HomeWorkProvider _homeWorkViewModel;
   @override
   void initState() {
     super.initState();
@@ -67,7 +67,7 @@ class _HomeWorkPageState extends State<_HomeWorkContentPage> {
 
   @override
   Widget build(BuildContext context) {
-    _homeWorkViewModel = Provide.value<HomeWorkViewModel>(context);
+    _homeWorkViewModel = Provide.value<HomeWorkProvider>(context);
     if(_homeWorkViewModel.userInfoEntity==null){
        _getCurrentUser();
     }

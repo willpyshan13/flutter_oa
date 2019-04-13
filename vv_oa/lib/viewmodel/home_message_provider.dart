@@ -8,7 +8,7 @@ import 'package:vv_oa/util/DataUtils.dart';
 
 ///我的页面
 ///提供数据model
-class HomeMessageViewModel extends ChangeNotifier {
+class HomeMessageProvider extends ChangeNotifier {
   final CompositeSubscription _subscriptions = CompositeSubscription();
   final VVModelRepository _repo;
   String _response = "";
@@ -22,7 +22,7 @@ class HomeMessageViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  HomeMessageViewModel(this.title,this._repo);
+  HomeMessageProvider(this.title,this._repo);
 
   ///获取我的日程
   Observable getFlowOverview() => _repo

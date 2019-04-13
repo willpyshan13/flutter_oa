@@ -10,14 +10,14 @@ import 'package:vv_oa/util/widgetutils.dart';
 import 'package:vv_oa/view/base/base.dart';
 import 'package:vv_oa/view/home_work/attendance/attendance_overtime_detail.dart';
 import 'package:vv_oa/view/home_work/attendance/attendance_widget.dart';
-import 'package:vv_oa/viewmodel/overtime_viewmodel.dart';
+import 'package:vv_oa/viewmodel/overtime_provider.dart';
 
 ///加班页面
 ///@author pengyushan
 ///@createTime 2019-4-12
 class AttendanceOvertimePage extends PageProvideNode {
   AttendanceOvertimePage() {
-    mProviders.provideValue(inject<OvertimeViewModel>());
+    mProviders.provideValue(inject<OvertimeProvider>());
   }
 
   @override
@@ -35,9 +35,9 @@ class _AttendanceOvertimePage extends StatefulWidget {
 }
 
 class _AttendanceOvertimePageState extends State<_AttendanceOvertimePage> {
-  OvertimeViewModel _overtimeViewModel;
+  OvertimeProvider _overtimeViewModel;
   ExtraWorkEntity _extraWorkEntity;
-  TextEditingController _nameController = TextEditingController(text: '666666');
+  TextEditingController _nameController = TextEditingController(text: '020');
   TextEditingController _passwordController = TextEditingController(text: '123456');
   DateTime _startDate = DateTime.now();
   TimeOfDay _startTime = TimeOfDay.now();
@@ -114,7 +114,7 @@ class _AttendanceOvertimePageState extends State<_AttendanceOvertimePage> {
 
   @override
   Widget build(BuildContext context) {
-    _overtimeViewModel = Provide.value<OvertimeViewModel>(context);
+    _overtimeViewModel = Provide.value<OvertimeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(GlobalConfig.vWorkOvertime),

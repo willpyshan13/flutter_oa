@@ -1,30 +1,28 @@
 import 'package:vv_oa/model/vv_model_service.dart';
 import 'package:vv_oa/model/vv_model_repository.dart';
 import 'package:vv_oa/util/DataUtils.dart';
-import 'package:vv_oa/viewmodel/home_work_viewmodel.dart';
-import 'package:vv_oa/viewmodel/login_viewmodel.dart';
-import 'package:vv_oa/viewmodel/home_message_viewmodel.dart';
+import 'package:vv_oa/viewmodel/home_work_provider.dart';
+import 'package:vv_oa/viewmodel/login_provider.dart';
+import 'package:vv_oa/viewmodel/home_message_provider.dart';
 import 'package:dartin/dartin.dart';
-import 'package:vv_oa/viewmodel/overtime_viewmodel.dart';
+import 'package:vv_oa/viewmodel/overtime_provider.dart';
 
 const testScope = DartInScope('test');
 
 ///提供model给main注册
 ///管理所有的module
 final viewModelModule = Module([
-  factory<LoginViewModel>(
-      ({params}) => LoginViewModel(params.get(0), get<VVModelRepository>())),
-  factory<HomeWorkViewModel>(
-          ({params}) => HomeWorkViewModel(params.get(0), get<VVModelRepository>())),
-  factory<OvertimeViewModel>(
-          ({params}) => OvertimeViewModel(params.get(0), get<VVModelRepository>())),
-  factory<HomeMessageViewModel>(({params}) =>
-      HomeMessageViewModel(params.get(0), get<VVModelRepository>())),
+  factory<LoginProvider>(
+      ({params}) => LoginProvider(params.get(0), get<VVModelRepository>())),
+  factory<HomeWorkProvider>(
+          ({params}) => HomeWorkProvider(params.get(0), get<VVModelRepository>())),
+  factory<OvertimeProvider>(
+          ({params}) => OvertimeProvider(params.get(0), get<VVModelRepository>())),
+  factory<HomeMessageProvider>(({params}) =>
+      HomeMessageProvider(params.get(0), get<VVModelRepository>())),
 ])
   ..addOthers(testScope, [
     ///other scope
-    factory<HomeMessageViewModel>(({params}) =>
-        HomeMessageViewModel(params.get(0), get<VVModelRepository>())),
   ]);
 
 final repoModule = Module([

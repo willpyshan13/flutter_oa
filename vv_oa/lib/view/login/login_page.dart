@@ -11,7 +11,7 @@ import 'package:vv_oa/util/dialog.dart';
 import 'package:vv_oa/util/toast.dart';
 import 'package:vv_oa/util/widgetutils.dart';
 import 'package:vv_oa/view/base/base.dart';
-import 'package:vv_oa/viewmodel/login_viewmodel.dart';
+import 'package:vv_oa/viewmodel/login_provider.dart';
 import 'package:provide/provide.dart';
 
 ///登陆页面，使用rxdart请求
@@ -21,7 +21,7 @@ class LoginPage extends PageProvideNode {
   final String title;
 
   LoginPage(this.title) {
-    mProviders.provideValue(inject<LoginViewModel>(params: [title]));
+    mProviders.provideValue(inject<LoginProvider>(params: [title]));
   }
 
   @override
@@ -39,7 +39,7 @@ class _LoginContentPage extends StatefulWidget {
 
 class _HomeContentState extends State<_LoginContentPage> with SingleTickerProviderStateMixin<_LoginContentPage> implements Presenter {
 
-  LoginViewModel _viewModel;
+  LoginProvider _viewModel;
   TextEditingController _nameController = TextEditingController(text: '666666');
   TextEditingController _passwordController = TextEditingController(text: '123456');
   AnimationController _controller;
@@ -100,7 +100,7 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
-    _viewModel = Provide.value<LoginViewModel>(context);
+    _viewModel = Provide.value<LoginProvider>(context);
     print("--------build--------");
     return Scaffold(
       appBar: AppBar(
@@ -137,8 +137,8 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
               const Padding(
                 padding: EdgeInsets.only(top: 30.0),
               ),
-              Provide<LoginViewModel>(
-                builder: (BuildContext context, Widget child, LoginViewModel value) => CupertinoButton(
+              Provide<LoginProvider>(
+                builder: (BuildContext context, Widget child, LoginProvider value) => CupertinoButton(
                       onPressed: value.loading ? null : () => onClick(_actionLogin),
                       pressedOpacity: 0.8,
                       child: Container(
@@ -163,7 +163,7 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
     );
   }
 
-  Widget _buildChild(LoginViewModel value) {
+  Widget _buildChild(LoginProvider value) {
     if (value.loading) {
       return const CircularProgressIndicator();
     } else {

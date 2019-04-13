@@ -9,10 +9,10 @@ import 'package:vv_oa/model/vv_model_repository.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:vv_oa/util/DataUtils.dart';
 ///登陆viewmodel
-class LoginViewModel extends ChangeNotifier {
+class LoginProvider extends ChangeNotifier {
   final CompositeSubscription _subscriptions = CompositeSubscription();
   final VVModelRepository _repo;
-  String username = "666666";
+  String username = "020";
   String password = "123456";
   bool _loading = false;
   String _response = "";
@@ -44,7 +44,7 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  LoginViewModel(this.title,this._repo);
+  LoginProvider(this.title,this._repo);
 
   /**
    * call the model layer 's method to login
