@@ -11,7 +11,7 @@ import 'package:rxdart/rxdart.dart';
 ///提供数据model
 class BaseProvider extends ChangeNotifier {
   final CompositeSubscription _subscriptions = CompositeSubscription();
-  final VVModelRepository _repo;
+  final VVModelRepository repo;
   String _response = "";
   CommonResponse commonResponse;
   final String title;
@@ -23,7 +23,7 @@ class BaseProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  BaseProvider(this.title, this._repo);
+  BaseProvider(this.title, this.repo);
 
   @override
   void dispose() {

@@ -9,7 +9,7 @@ import 'package:vv_oa/view/vv_oa_page.dart';
 import 'package:vv_oa/util/DataUtils.dart';
 import 'package:vv_oa/util/dialog.dart';
 import 'package:vv_oa/util/toast.dart';
-import 'package:vv_oa/util/widgetutils.dart';
+import 'package:vv_oa/util/dispatch_failure.dart';
 import 'package:vv_oa/view/base/base.dart';
 import 'package:vv_oa/viewmodel/login_provider.dart';
 import 'package:provide/provide.dart';
@@ -30,6 +30,7 @@ class LoginPage extends PageProvideNode {
   }
 }
 
+///内部登陆页面
 class _LoginContentPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -37,10 +38,11 @@ class _LoginContentPage extends StatefulWidget {
   }
 }
 
+///内部状态内容
 class _HomeContentState extends State<_LoginContentPage> with SingleTickerProviderStateMixin<_LoginContentPage> implements Presenter {
 
   LoginProvider _viewModel;
-  TextEditingController _nameController = TextEditingController(text: '666666');
+  TextEditingController _nameController = TextEditingController(text: '020');
   TextEditingController _passwordController = TextEditingController(text: '123456');
   AnimationController _controller;
   Animation<double> _animation;
@@ -73,6 +75,10 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
     }
   }
 
+  ///发起登陆请求
+  ///forward 启动动画
+  ///reverse 关闭动画
+  ///listen 监听返回数据，登陆成功跳转首页
   _login(String name,String password) {
     final s = _viewModel.login().doOnListen(() {
       _controller.forward();
@@ -93,7 +99,7 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
       Toast.show(_viewModel.loginEntity.message, context, type: Toast.SUCCESS);
     }, onError: (e) {
       //error
-      dispatchFailure(context, e);
+
     });
     _viewModel.plus(s);
   }

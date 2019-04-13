@@ -6,7 +6,7 @@ import 'package:provide/provide.dart';
 import 'package:vv_oa/constant/constants.dart';
 import 'package:vv_oa/constant/global_config.dart';
 import 'package:vv_oa/event/login_event.dart';
-import 'package:vv_oa/util/widgetutils.dart';
+import 'package:vv_oa/util/dispatch_failure.dart';
 import 'package:vv_oa/view/base/base.dart';
 import 'package:vv_oa/view/home_work/work_finance_card.dart';
 import 'package:vv_oa/view/home_work/work_management_card.dart';
@@ -59,7 +59,6 @@ class _HomeWorkPageState extends State<_HomeWorkContentPage> {
 
       });
     }, onError: (e) {
-      //error
       dispatchFailure(context, e);
     });
     _homeWorkViewModel.plus(currentUser);
@@ -84,6 +83,7 @@ class _HomeWorkPageState extends State<_HomeWorkContentPage> {
               ],
             ),
           ),
-        ));
+        )
+    );
   }
-  }
+}

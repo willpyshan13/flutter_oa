@@ -4,7 +4,7 @@ import 'package:dartin/dartin.dart';
 import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import 'package:vv_oa/constant/constants.dart';
-import 'package:vv_oa/util/widgetutils.dart';
+import 'package:vv_oa/util/dispatch_failure.dart';
 import 'package:vv_oa/view/item/article_item.dart';
 import 'package:vv_oa/view/base/base.dart';
 import 'package:vv_oa/widget/end_line.dart';

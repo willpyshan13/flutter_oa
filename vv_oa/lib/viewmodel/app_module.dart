@@ -11,6 +11,7 @@ const testScope = DartInScope('test');
 
 ///提供model给main注册
 ///管理所有的module
+///有添加新的provider，需要添加到这个里面来注册，生成依赖
 final viewModelModule = Module([
   factory<LoginProvider>(
       ({params}) => LoginProvider(params.get(0), get<VVModelRepository>())),

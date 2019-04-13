@@ -7,25 +7,14 @@ import 'package:vv_oa/entity/extra_work_entity.dart';
 import 'package:vv_oa/model/vv_model_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
+import 'base_provider.dart';
+
 ///加班页面
 ///提供数据model
-class OvertimeProvider extends ChangeNotifier {
-  final CompositeSubscription _subscriptions = CompositeSubscription();
-  final VVModelRepository _repo;
-  String _response = "";
-  CommonResponse commonResponse;
-  final String title;
+class OvertimeProvider extends BaseProvider {
+  OvertimeProvider(String title, VVModelRepository repo) : super(title, repo);
 
-  String get response => _response;
-
-  set response(String response) {
-    _response = response;
-    notifyListeners();
-  }
-
-  OvertimeProvider(this.title, this._repo);
-
-  Observable postExtraWork(ExtraWorkEntity extraWorkEntity) => _repo
+  Observable postExtraWork(ExtraWorkEntity extraWorkEntity) => repo
       .postExtraWork(extraWorkEntity)
       .doOnData((r) {
         commonResponse = CommonResponse.fromJson(r);
@@ -39,17 +28,5 @@ class OvertimeProvider extends ChangeNotifier {
       .doOnListen(() {})
       .doOnDone(() {});
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
-  void disposeBag() {
-    _subscriptions.dispose();
-  }
-
-  /// add [StreamSubscription] to [_subscriptions]
-  void plus(StreamSubscription s) {
-    _subscriptions.add(s);
-  }
 }
