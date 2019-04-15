@@ -6,7 +6,7 @@ import 'package:provide/provide.dart';
 import 'package:vv_oa/constant/constants.dart';
 import 'package:vv_oa/entity/banner_entity.dart';
 import 'package:vv_oa/util/dispatch_failure.dart';
-import 'package:vv_oa/view/item/article_item.dart';
+import 'package:vv_oa/view/home_message/home_message_item.dart';
 import 'package:vv_oa/view/base/base.dart';
 import 'package:vv_oa/widget/end_line.dart';
 import 'package:vv_oa/widget/slide_view.dart';

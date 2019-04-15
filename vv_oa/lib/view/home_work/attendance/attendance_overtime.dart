@@ -35,6 +35,9 @@ class _AttendanceOvertimePage extends StatefulWidget {
 }
 
 class _AttendanceOvertimePageState extends State<_AttendanceOvertimePage> {
+
+  FocusNode _focusNodeTime = new FocusNode();
+  FocusNode _focusNodeReason = new FocusNode();
   OvertimeProvider _overtimeViewModel;
   ExtraWorkEntity _extraWorkEntity;
   TextEditingController _overTimeReason = TextEditingController(text: '');
@@ -255,6 +258,7 @@ class _AttendanceOvertimePageState extends State<_AttendanceOvertimePage> {
           ),
           getContainerRichText(context, GlobalConfig.commonTotalTime),
           TextField(
+            focusNode: _focusNodeTime,
             keyboardType: TextInputType.number,
             maxLength: 5,
             controller: _inputTimeCount,
@@ -277,6 +281,7 @@ class _AttendanceOvertimePageState extends State<_AttendanceOvertimePage> {
                         fontSize: 15.5, height: 1.2, color: Colors.blue),
                     textAlign: TextAlign.left),
                 TextField(
+                  focusNode: _focusNodeReason,
                   keyboardType: TextInputType.text,
                   maxLength: 30,
                   controller: _overTimeReason,

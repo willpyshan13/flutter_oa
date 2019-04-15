@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:vv_oa/constant/constants.dart';
 import 'package:vv_oa/http/api.dart';
 import 'package:vv_oa/http/default_http_util_with_cookie.dart';
-import 'package:vv_oa/view/item/article_item.dart';
+import 'package:vv_oa/view/home_message/home_message_item.dart';
 import 'package:vv_oa/widget/end_line.dart';
 
 class ArticleListPage extends StatefulWidget {
