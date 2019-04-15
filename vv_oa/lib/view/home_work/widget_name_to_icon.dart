@@ -38,7 +38,6 @@ class WidgetName2Icon {
     "Row":Icons.recent_actors,
     "Column":Icons.cloud_off,
     "Container":Icons.edit_location,
-    "Center":Icons.gesture,
     "Box":Icons.hdr_strong,
     "ConstrainedBox":Icons.account_box,
     "OverflowBox":Icons.email,

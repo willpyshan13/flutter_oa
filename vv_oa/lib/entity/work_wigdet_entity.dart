@@ -1,4 +1,4 @@
-
+///工作界面元素
 abstract class CatInterface{
     int get id;
     //类目名称
@@ -11,18 +11,18 @@ abstract class CatInterface{
     int get parentId;
 }
 
-class Cat implements CatInterface {
+class WorkWidgetEntity implements CatInterface {
   int id;
   String name;
   String desc;
   String engName;
   int depth;
   int parentId;
-  List<Cat> children;
+  List<WorkWidgetEntity> children;
 
-  Cat({this.id, this.name, this.desc, this.depth, this.parentId,this.children,this.engName});
+  WorkWidgetEntity({this.id, this.name, this.desc, this.depth, this.parentId,this.children,this.engName});
 
-  Cat.fromJSON(Map json)
+  WorkWidgetEntity.fromJSON(Map json)
       : id = json['id'],
         name = json['name'],
         desc = json['desc'],

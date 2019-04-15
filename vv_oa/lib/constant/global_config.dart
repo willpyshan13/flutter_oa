@@ -34,6 +34,7 @@ class GlobalConfig {
   static String commonImageText = "图片";
   static String commonOutReason = "外出事由";
   static String commonOvertimeReason = "加班原因";
+  static String commonSelectTime = "请输入时间";
 
   static String commonPhone = "电话";
   static String commonEmail = "邮箱";

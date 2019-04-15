@@ -87,6 +87,27 @@ Widget getContainerText(BuildContext context, String title) {
   );
 }
 
+Widget getContainerRichText(BuildContext context, String title) {
+  return Container(
+    color: GlobalConfig.cardBackgroundColor,
+    child: Container(
+      margin: const EdgeInsets.only(left: 15.0),
+      child: RichText(
+        text: TextSpan(
+          children: <TextSpan>[
+            TextSpan(
+                text: '*',
+                style: TextStyle(color: Colors.red)),
+            TextSpan(
+                text: title,
+                style: TextStyle(color: Colors.black)),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
 Widget getTextField(BuildContext context, String title) {
   return Container(
     color: GlobalConfig.cardBackgroundColor,

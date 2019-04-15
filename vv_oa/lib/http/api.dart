@@ -1,6 +1,9 @@
 class Api {
 
-  static const String BaseUrl = "http://oa.vv.cn/";
+  ///release url
+  //static const String BaseUrl = "http://oa.vv.cn/";
+  ///test url
+  static const String BaseUrl = "http://172.16.1.122:4001/";
 
   ///我的流程列表
   static const   String flowOverview = "api/flowOverview";

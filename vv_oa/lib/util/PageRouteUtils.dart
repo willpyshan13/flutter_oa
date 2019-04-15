@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vv_oa/view/home_work/attendance/attendance_overtime.dart';
 import 'package:vv_oa/view/webview/article_detail_page.dart';
 
 ///跳转到网页
@@ -35,6 +36,15 @@ routePagerNavigator(BuildContext context, Widget v) {
           ),
         );
       }));
+}
+
+///跳转页面，通过英文名
+routePagerNavigatorByPath(BuildContext context, String path) {
+  ///跳转我的申请页面
+  if(path == 'myApplication'){
+    routePagerNavigator(context, AttendanceOvertimePage());
+  }
+
 }
 
 ///跳转页面，销毁原先页面

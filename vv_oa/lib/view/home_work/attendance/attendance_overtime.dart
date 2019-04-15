@@ -37,8 +37,8 @@ class _AttendanceOvertimePage extends StatefulWidget {
 class _AttendanceOvertimePageState extends State<_AttendanceOvertimePage> {
   OvertimeProvider _overtimeViewModel;
   ExtraWorkEntity _extraWorkEntity;
-  TextEditingController _nameController = TextEditingController(text: '020');
-  TextEditingController _passwordController = TextEditingController(text: '123456');
+  TextEditingController _overTimeReason = TextEditingController(text: '');
+  TextEditingController _inputTimeCount = TextEditingController(text: '');
   DateTime _startDate = DateTime.now();
   TimeOfDay _startTime = TimeOfDay.now();
 
@@ -54,66 +54,100 @@ class _AttendanceOvertimePageState extends State<_AttendanceOvertimePage> {
         lastDate: DateTime(2101));
     if (picked != null && picked != _startDate)
       print("data selectied :${_startDate.toString()}");
+
+    if(picked.isBefore(_startDate)){
+      Toast.show("结束时间不能小于开始时间", context,type: Toast.ERROR);
+    }else {
       _selectTime(context, type);
       setState(() {
         if (type == 0) {
-           _startDate = picked;
+          _startDate = picked;
         } else {
-           _endDate = picked;
+          _endDate = picked;
         }
-    });
-
+      });
+    }
     if (picked == null) _startDate = DateTime.now();
   }
+
+  ///选择时间对话框，目前使用的是安卓样式，需要改成ios样式
+  Future<void> _selectTime(BuildContext context, int type) async {
+    final TimeOfDay picked =
+    await showTimePicker(context: context, initialTime: _startTime);
+    if (picked != null && picked != _startTime)
+      print("data selectied :${_startTime.toString()}");
+    if(_endDate.isAtSameMomentAs(_startDate)&&picked.hour<_startTime.hour){
+      Toast.show("结束时间不能小于开始时间", context,type: Toast.ERROR);
+    }else {
+      setState(() {
+        if (type == 0) {
+          _startTime = picked;
+        } else {
+          _endTime = picked;
+
+        }
+      });
+    }
+
+    if (picked == null) _startTime = TimeOfDay.now();
+  }
+
 
   ///生成请求体，提交加班
   ExtraWorkEntity getExtraWorkEntity() {
     List<String> copyToList = List();
     copyToList.add("1115800549863620608");
-    _extraWorkEntity = ExtraWorkEntity(copyTo:copyToList,extraWorkType:1,extraWorkReason:'ddd',
-        extraWorkEndTime:'2019-04-14 16:18:00',extraWorkStartTime:'2019-04-13 16:18:00',extraWorkHours:24);
+    _extraWorkEntity = ExtraWorkEntity(copyTo:copyToList,extraWorkType:1,extraWorkReason:_overTimeReason.text,
+        extraWorkEndTime:'${_endDate.year}-${_endDate.month}-${_endDate.day} ${_endTime.hour}:${_endTime.minute}:00',extraWorkStartTime: '${_startDate.year}-${_startDate.month}-${_startDate.day} ${_startTime.hour}:${_startTime.minute}:00',extraWorkHours:int.parse(_inputTimeCount.text));
     return _extraWorkEntity;
+  }
+
+  ///判断数据是否正确
+  bool checkData(){
+    bool flag;
+    if(_overTimeReason.text == ''){
+      Toast.show(GlobalConfig.commonLeaveReasonInput, context,type: Toast.ERROR);
+      flag =  false;
+    }else{
+      flag= true;
+    }
+
+    if(_inputTimeCount.text == ''){
+      Toast.show(GlobalConfig.commonSelectTime, context,type: Toast.ERROR);
+      flag =  false;
+    }else{
+      flag= true;
+    }
+
+    return flag;
   }
 
   ///提交加班申请
   ///listen 处理返回结果
   /// onError 处理错误消息
   void _postExtraWork() {
-    final currentUser = _overtimeViewModel
-        .postExtraWork(getExtraWorkEntity())
-        .listen((t) {
-      if(_overtimeViewModel.commonResponse!=null){
-        if(_overtimeViewModel.commonResponse.code==VHttpStatus.statusOk){
-          routePagerAndReplace(context, new AttendanceOvertimeDetailPage());
+    if(checkData()) {
+      final currentUser = _overtimeViewModel
+          .postExtraWork(getExtraWorkEntity())
+          .listen((t) {
+        if (_overtimeViewModel.commonResponse != null) {
+          if (_overtimeViewModel.commonResponse.code == VHttpStatus.statusOk) {
+            routePagerAndReplace(context, new AttendanceOvertimeDetailPage());
+          }
+          Toast.show(_overtimeViewModel.commonResponse.message, context,
+              type: Toast.SUCCESS);
         }
-        Toast.show(_overtimeViewModel.commonResponse.message, context, type: Toast.SUCCESS);
-      }
-
-    }, onError: (e) {
-      //error
-      dispatchFailure(context, e);
-    });
-    _overtimeViewModel.plus(currentUser);
-  }
-
-  ///选择时间对话框，目前使用的是安卓样式，需要改成ios样式
-  Future<void> _selectTime(BuildContext context, int type) async {
-    final TimeOfDay picked =
-        await showTimePicker(context: context, initialTime: _startTime);
-    if (picked != null && picked != _startTime)
-      print("data selectied :${_startTime.toString()}");
-    setState(() {
-      if (type == 0) {
-        _startTime = picked;
-      } else {
-        _endTime = picked;
-      }
-    });
-    if (picked == null) _startTime = TimeOfDay.now();
+      }, onError: (e) {
+        //error
+        dispatchFailure(context, e);
+      });
+      _overtimeViewModel.plus(currentUser);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+
     _overtimeViewModel = Provide.value<OvertimeProvider>(context);
     return Scaffold(
       appBar: AppBar(
@@ -200,38 +234,14 @@ class _AttendanceOvertimePageState extends State<_AttendanceOvertimePage> {
           SizedBox(
             height: 1,
           ),
-          Container(
-            color: GlobalConfig.cardBackgroundColor,
-            child: new FlatButton(
-                onPressed: () {
-//            _handleOnItemCollect(widget.itemData);
-                },
-                child: new Container(
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: RichText(
-                          text: TextSpan(
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: '*',
-                                  style: TextStyle(color: Colors.red)),
-                              TextSpan(
-                                  text: GlobalConfig.commonTotalTime,
-                                  style: TextStyle(color: Colors.black)),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Text(
-                        GlobalConfig.commonInputTime,
-                        softWrap: true,
-                        style: TextStyle(color: Theme.of(context).accentColor),
-                        textAlign: TextAlign.left,
-                      )
-                    ],
-                  ),
-                )),
+          getContainerRichText(context, GlobalConfig.commonTotalTime),
+          TextField(
+            keyboardType: TextInputType.number,
+            maxLength: 5,
+            controller: _inputTimeCount,
+            decoration: InputDecoration(
+              helperText: GlobalConfig.commonInputTime,
+            ),
           ),
           getContainerText(context, GlobalConfig.commonInputTimeAuto),
           SizedBox(
@@ -250,6 +260,7 @@ class _AttendanceOvertimePageState extends State<_AttendanceOvertimePage> {
                 TextField(
                   keyboardType: TextInputType.text,
                   maxLength: 30,
+                  controller: _overTimeReason,
                   decoration: InputDecoration(
                     helperText: GlobalConfig.commonLeaveReasonInput,
                   ),

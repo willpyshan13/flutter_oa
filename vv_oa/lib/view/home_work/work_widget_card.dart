@@ -2,30 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:vv_oa/view/home_work/widget_item_container.dart';
 import 'package:vv_oa/view/home_work/widget_name_to_icon.dart';
 
-import 'cat.dart';
+import 'package:vv_oa/entity/work_wigdet_entity.dart';
 
-class CateCard extends StatefulWidget {
-  final Cat category;
-  CateCard({@required this.category});
+class WorkWidgetCard extends StatefulWidget {
+  final WorkWidgetEntity category;
+  WorkWidgetCard({@required this.category});
   @override
-  _CateCardState createState() => _CateCardState(category.children);
+  _WorkWidgetCardState createState() => _WorkWidgetCardState(category.children);
 }
 
-class _CateCardState extends State<CateCard> {
+class _WorkWidgetCardState extends State<WorkWidgetCard> {
   // 一级菜单目录下的二级Cat集合
-  List<Cat> _firstChildList = new List();
+  List<WorkWidgetEntity> _firstChildList = new List();
 
-
-  _CateCardState(this._firstChildList);
+  _WorkWidgetCardState(this._firstChildList);
 
   @override
   void initState() {
     super.initState();
     if(_firstChildList == null){
       _firstChildList = [];
-      _firstChildList.add(Cat(name: '22'));
-      _firstChildList.add(Cat(name: '22'));
-      _firstChildList.add(Cat(name: '22'));
     }
   }
 

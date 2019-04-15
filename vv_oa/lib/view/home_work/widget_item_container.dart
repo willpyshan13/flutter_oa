@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vv_oa/util/PageRouteUtils.dart';
 import 'package:vv_oa/view/home_work/widget_item.dart';
 
 class WidgetItemContainer extends StatelessWidget {
@@ -30,13 +31,8 @@ class WidgetItemContainer extends StatelessWidget {
                 title: item.name,
                 engName: item.engName,
                 onTap: () {
-                  if (isWidgetPoint) {
-                    String targetName = item.name;
-                    String targetRouter = '/category/error/404';
-//                    Application.router.navigateTo(context, "$targetRouter", transition: TransitionType.inFromRight);
-                  } else {
-//                    Application.router
-//                        .navigateTo(context, "/category/${item.name}", transition: TransitionType.inFromRight);
+                  if (!isWidgetPoint) {
+                    routePagerNavigatorByPath(context,item.engName);
                   }
                 },
                 index: addI,

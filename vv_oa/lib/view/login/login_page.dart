@@ -5,6 +5,7 @@ import 'package:vv_oa/constant/constants.dart';
 import 'package:vv_oa/constant/v_http_status.dart';
 import 'package:vv_oa/entity/common_response.dart';
 import 'package:vv_oa/event/login_event.dart';
+import 'package:vv_oa/util/PageRouteUtils.dart';
 import 'package:vv_oa/view/vv_oa_page.dart';
 import 'package:vv_oa/util/DataUtils.dart';
 import 'package:vv_oa/util/dialog.dart';
@@ -91,9 +92,7 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
       if(_viewModel.loginEntity.code == VHttpStatus.statusOk){
         DataUtils.saveLoginInfo(name,password,_viewModel.loginEntity.data,_viewModel.loginEntity.currentAuthority).then((r) {
           Constants.eventBus.fire(LoginEvent());
-          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
-            return VVOAApp();
-          }));
+          routePagerAndReplace(context,VVOAApp());
         });
       }
       Toast.show(_viewModel.loginEntity.message, context, type: Toast.SUCCESS);
