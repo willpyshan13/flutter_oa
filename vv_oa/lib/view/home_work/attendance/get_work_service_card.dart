@@ -6,6 +6,8 @@ import 'package:vv_oa/view/home_work/attendance/attendance_overtime.dart';
 import 'package:vv_oa/view/home_work/attendance/attendance_supplementary_apply.dart';
 import 'package:vv_oa/util/PageRouteUtils.dart';
 
+import 'attendance_travel.dart';
+
 Widget getWorkServiceCard(BuildContext context) {
   return new Container(
     color: GlobalConfig.cardBackgroundColor,
@@ -51,7 +53,7 @@ Widget getWorkServiceCard(BuildContext context) {
                 width: MediaQuery.of(context).size.width / 3,
                 child: new FlatButton(
                     onPressed: () {
-                      routePagerNavigator(context, new AttendanceLeavePage());
+                      routePagerNavigator(context, AttendanceTravel());
                     },
                     child: new Container(
                       child: new Column(

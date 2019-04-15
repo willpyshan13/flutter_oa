@@ -33,7 +33,9 @@ dependencies:
   dartin: ^0.0.1
   json_serializable: ^1.2.0
   image_picker: ^0.4.12+1
-
+  # 日期格式化
+  intl: 0.15.7
+  city_pickers: ^0.1.0
 
 dev_dependencies:
   flutter_test:

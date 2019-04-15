@@ -24,7 +24,7 @@ class GlobalConfig {
   static String vWorkOvertime = "加班";
   static String vWorkLeaveType = "请假类型";
   static String workVacationBalance = "假期余额";
-  static String workTravel = "出差";
+  static String workTravel = '出差';
   static String workApproval = "我的审批";
   static String commonStartTime = "开始时间";
   static String commonEndTime = "结束时间";
