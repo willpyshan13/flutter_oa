@@ -84,7 +84,6 @@ class _HomeMessagePageState extends State<_HomeContentPage> {
   Widget build(BuildContext context) {
     _homeMessageViewModel = Provide.value<HomeMessageProvider>(context);
     if(_homeMessageViewModel.flowOverviewEntity==null){
-      print("build request");
       getBanner();
       _getHomeArticleList();
     }
