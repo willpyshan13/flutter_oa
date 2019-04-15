@@ -4,6 +4,7 @@ import 'package:dartin/dartin.dart';
 import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import 'package:vv_oa/constant/constants.dart';
+import 'package:vv_oa/entity/banner_entity.dart';
 import 'package:vv_oa/util/dispatch_failure.dart';
 import 'package:vv_oa/view/item/article_item.dart';
 import 'package:vv_oa/view/base/base.dart';
@@ -74,7 +75,7 @@ class _HomeMessagePageState extends State<_HomeContentPage> {
 
   Future<Null> _pullToRefresh() async {
     curPage = 0;
-//    getBanner();
+    getBanner();
     _getHomeArticleList();
     return null;
   }
@@ -82,14 +83,19 @@ class _HomeMessagePageState extends State<_HomeContentPage> {
   @override
   Widget build(BuildContext context) {
     _homeMessageViewModel = Provide.value<HomeMessageProvider>(context);
-//    _getHomeArticleList();
-    if (listData == null) {
+    if(_homeMessageViewModel.flowOverviewEntity==null){
+      print("build request");
+      getBanner();
+      _getHomeArticleList();
+    }
+
+    if (_homeMessageViewModel.flowOverviewEntity == null) {
       return Center(
         child: CircularProgressIndicator(),
       );
     } else {
       Widget listView = ListView.builder(
-        itemCount: 5,
+        itemCount: _homeMessageViewModel.flowOverviewEntity.rows.length+1,
         itemBuilder: (context, i) => buildItem(i),
         controller: _controller,
       );
@@ -101,18 +107,23 @@ class _HomeMessagePageState extends State<_HomeContentPage> {
   SlideView _bannerView;
 
   ///用来展示公司公告布局，暂时没有请求网络
-  void getBanner() {}
+  void getBanner() {
+    List<BannerEntity> data = [];
+    data.add(BannerEntity("https://flutter.io/assets/homepage/news-2-599aefd56e8aa903ded69500ef4102cdd8f988dab8d9e4d570de18bdb702ffd4.png", 'hello'));
+    data.add(BannerEntity("https://flutter.io/assets/homepage/news-2-599aefd56e8aa903ded69500ef4102cdd8f988dab8d9e4d570de18bdb702ffd4.png", 'hello'));
+    _bannerView = SlideView(data);
+  }
 
   void _getHomeArticleList() {
     final s = _homeMessageViewModel
         .getFlowOverview()
         .doOnListen(() {})
         .doOnCancel(() {
-      print("======cancel======");
     }).listen((t) {
       //success
-      print("======listen======");
-//      Toast.show("login success", context, type: Toast.SUCCESS);
+      setState(() {
+
+      });
     }, onError: (e) {
       //error
       dispatchFailure(context, e);
@@ -120,6 +131,7 @@ class _HomeMessagePageState extends State<_HomeContentPage> {
     _homeMessageViewModel.plus(s);
   }
 
+  ///生成列表子item
   Widget buildItem(int i) {
     if (i == 0) {
       return Container(
@@ -128,10 +140,8 @@ class _HomeMessagePageState extends State<_HomeContentPage> {
       );
     }
     i -= 1;
-
-    var itemData;
-
-    if (itemData is String && itemData == Constants.END_LINE_TAG) {
+    var itemData = _homeMessageViewModel.flowOverviewEntity.rows[i];
+    if (itemData is String) {
       return EndLine();
     }
 

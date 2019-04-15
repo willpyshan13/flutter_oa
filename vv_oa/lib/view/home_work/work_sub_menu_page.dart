@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import 'package:vv_oa/entity/work_wigdet_entity.dart';
 import 'package:vv_oa/view/base/base.dart';
-import 'package:vv_oa/view/home_work/work_widget_card.dart';
+import 'package:vv_oa/view/home_work/widget/work_widget_card.dart';
 import 'package:vv_oa/viewmodel/work_sub_menu_provider.dart';
 
 import 'attendance/get_work_service_card.dart';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vv_oa/constant/work_item.dart';
 import 'package:vv_oa/http/api.dart';
 import 'package:vv_oa/http/default_http_util_with_cookie.dart';
 import 'package:vv_oa/util/DataUtils.dart';
@@ -6,7 +7,7 @@ import 'package:vv_oa/util/StringUtils.dart';
 
 ///个人感觉条目比较复杂的话可以单独拿出来,而且可以复用.可以对比CollectListPage.dart中的item哪个更合理
 class ArticleItem extends StatefulWidget {
-//  var itemData;
+  var itemData;
 
   //是否来自搜索列表
    bool isSearch;
@@ -15,7 +16,7 @@ class ArticleItem extends StatefulWidget {
   String id;
 
   ArticleItem(var itemData) {
-//    this.itemData = itemData;
+    this.itemData = itemData;
     this.isSearch = false;
   }
 
@@ -33,39 +34,13 @@ class ArticleItem extends StatefulWidget {
 }
 
 class ArticleItemState extends State<ArticleItem> {
-  void _handleOnItemCollect(itemData) {
-    DataUtils.getIsLogin().then((isLogin) {
-      if (!isLogin) {
-        _login();
-      } else {
-        _itemCollect(itemData);
-      }
-    });
-  }
-
-  _login() {
-//    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-//      return LoginPage();
-//    }));
-  }
 
   void _itemClick(itemData) async {
-//    await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-//      return ArticleDetailPage(
-//        title: itemData['title'],
-//        url: itemData['link'],
-//      );
-//    }));
-  }
-
-  //收藏/取消收藏
-  void _itemCollect(var itemData) {
 
   }
 
   @override
   Widget build(BuildContext context) {
-//    bool isCollect = widget.itemData["collect"];
 
     Row author = Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -73,14 +48,13 @@ class ArticleItemState extends State<ArticleItem> {
         Expanded(
             child: Row(
           children: <Widget>[
-            Text('作者:  '),
             Text(
-              "title",
+              widget.itemData.title,
               style: TextStyle(color: Theme.of(context).accentColor),
             ),
           ],
         )),
-        Text("createTim",
+        Text(widget.itemData.createTime,
           style: TextStyle(color: Theme.of(context).accentColor),)
       ],
     );
@@ -89,7 +63,7 @@ class ArticleItemState extends State<ArticleItem> {
       children: <Widget>[
         Expanded(
           child: Text.rich(
-            TextSpan(text: "title"),
+            TextSpan(text: widget.itemData.summary),
             softWrap: true,
             style: TextStyle(fontSize: 16.0, color: Colors.black),
             textAlign: TextAlign.left,
@@ -103,21 +77,19 @@ class ArticleItemState extends State<ArticleItem> {
       children: <Widget>[
         Expanded(
           child: Text(
-            "characterName",
+            WorkItem.flowOverviewType[int.parse(widget.itemData.type)],
             softWrap: true,
             style: TextStyle(color: Theme.of(context).accentColor),
             textAlign: TextAlign.left,
           ),
         ),
-        IconButton(
-          icon: Icon(
-            Icons.favorite ,
-            color:Colors.red ,
+        Text(
+            int.parse(widget.itemData.status)>=0?WorkItem.flowOverviewStatus[int.parse(widget.itemData.status)]:WorkItem.flowOverviewStatus[2],
+            softWrap: true,
+            style: TextStyle(color: Theme.of(context).accentColor),
+            textAlign: TextAlign.left,
           ),
-          onPressed: () {
-//            _handleOnItemCollect(widget.itemData);
-          },
-        )
+
       ],
     );
 

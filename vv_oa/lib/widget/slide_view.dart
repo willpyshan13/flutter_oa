@@ -7,7 +7,7 @@ class SlideView extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return new SlideViewState(data);
+    return SlideViewState(data);
   }
 }
 
@@ -38,9 +38,8 @@ class SlideViewState extends State<SlideView>
     if (data != null && data.length > 0) {
       for (var i = 0; i < data.length; i++) {
         var item = data[i];
-        var imgUrl = item['imagePath'];
-        var title = item['title'];
-        item['link'] = item['url'];
+        var imgUrl = item.imagePath;
+        var title = item.title;
         items.add(new GestureDetector(
             onTap: () {
               _handOnItemClick(item);

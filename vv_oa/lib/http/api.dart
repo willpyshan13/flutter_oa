@@ -1,7 +1,7 @@
 class Api {
 
   ///release url
-  //static const String BaseUrl = "http://oa.vv.cn/";
+//  static const String BaseUrl = "http://oa.vv.cn/";
   ///test url
   static const String BaseUrl = "http://172.16.1.122:4001/";
 
@@ -19,4 +19,10 @@ class Api {
 
   ///获取加班信息
   static const   String getFlowExtraWorkBill = "api/flowExtraWorkBill/findById?api_key=flowOverview";
+
+  ///获取抄送人,需要权限
+  static const   String findByBillType = "/api/flowBillCopyToSet/findByBillType";
+
+  ///获取抄送人
+  static const   String getAssigneeAndCopyList = "/api/flowBusyTripBill/getAssigneeAndCopyList";
 }

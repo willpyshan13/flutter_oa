@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vv_oa/view/home_work/widget_item_container.dart';
-import 'package:vv_oa/view/home_work/widget_name_to_icon.dart';
+import 'package:vv_oa/view/home_work/widget/widget_item_container.dart';
+import 'package:vv_oa/view/home_work/widget/widget_name_to_icon.dart';
 
 import 'package:vv_oa/entity/work_wigdet_entity.dart';
 

@@ -11,7 +11,7 @@ import 'package:vv_oa/util/DataUtils.dart';
 import 'package:vv_oa/viewmodel/work_menu_provider.dart';
 
 import 'package:vv_oa/entity/work_wigdet_entity.dart';
-import 'work_widget_card.dart';
+import 'package:vv_oa/view/home_work/widget/work_widget_card.dart';
 
 ///工作页面
 ///创建一个provider界面，可以对数据进行刷新操作
