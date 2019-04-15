@@ -17,4 +17,10 @@ class VVModelService{
 
   ///提交加班申请
   Observable<dynamic> postExtraWork(String params)=> posWithData(Api.startFlowExtraWorkBill,params);
+
+  ///获取抄送人，需要权限
+  Observable<dynamic> findByBillType(Map<String,dynamic> param)=> get(Api.findByBillType,params:param);
+
+  ///获取抄送人,通用
+  Observable<dynamic> getAssigneeAndCopyList()=> get(Api.getAssigneeAndCopyList);
 }

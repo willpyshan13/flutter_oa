@@ -1,11 +1,12 @@
 import 'package:vv_oa/model/vv_model_service.dart';
 import 'package:vv_oa/model/vv_model_repository.dart';
 import 'package:vv_oa/util/DataUtils.dart';
-import 'package:vv_oa/viewmodel/home_work_provider.dart';
+import 'package:vv_oa/viewmodel/work_menu_provider.dart';
 import 'package:vv_oa/viewmodel/login_provider.dart';
 import 'package:vv_oa/viewmodel/home_message_provider.dart';
 import 'package:dartin/dartin.dart';
 import 'package:vv_oa/viewmodel/overtime_provider.dart';
+import 'package:vv_oa/viewmodel/work_sub_menu_provider.dart';
 
 const testScope = DartInScope('test');
 
@@ -15,10 +16,12 @@ const testScope = DartInScope('test');
 final viewModelModule = Module([
   factory<LoginProvider>(
       ({params}) => LoginProvider(params.get(0), get<VVModelRepository>())),
-  factory<HomeWorkProvider>(
-          ({params}) => HomeWorkProvider(params.get(0), get<VVModelRepository>())),
+  factory<WorkMenuProvider>(
+          ({params}) => WorkMenuProvider(params.get(0), get<VVModelRepository>())),
   factory<OvertimeProvider>(
           ({params}) => OvertimeProvider(params.get(0), get<VVModelRepository>())),
+  factory<WorkSubMenuProvider>(
+          ({params}) => WorkSubMenuProvider(params.get(0), get<VVModelRepository>(),params.get(1))),
   factory<HomeMessageProvider>(({params}) =>
       HomeMessageProvider(params.get(0), get<VVModelRepository>())),
 ])

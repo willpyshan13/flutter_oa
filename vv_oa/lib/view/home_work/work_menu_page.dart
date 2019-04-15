@@ -8,16 +8,16 @@ import 'package:vv_oa/event/login_event.dart';
 import 'package:vv_oa/util/dispatch_failure.dart';
 import 'package:vv_oa/view/base/base.dart';
 import 'package:vv_oa/util/DataUtils.dart';
-import 'package:vv_oa/viewmodel/home_work_provider.dart';
+import 'package:vv_oa/viewmodel/work_menu_provider.dart';
 
 import 'package:vv_oa/entity/work_wigdet_entity.dart';
 import 'work_widget_card.dart';
 
 ///工作页面
 ///创建一个provider界面，可以对数据进行刷新操作
-class HomeWorkPage extends PageProvideNode {
-  HomeWorkPage() {
-    mProviders.provideValue(inject<HomeWorkProvider>());
+class WorkMenuPage extends PageProvideNode {
+  WorkMenuPage() {
+    mProviders.provideValue(inject<WorkMenuProvider>());
   }
 
   @override
@@ -34,9 +34,8 @@ class _HomeWorkContentPage extends StatefulWidget {
   }
 }
 
-class _HomeWorkPageState extends State<_HomeWorkContentPage>
-    with AutomaticKeepAliveClientMixin {
-  HomeWorkProvider _homeWorkViewModel;
+class _HomeWorkPageState extends State<_HomeWorkContentPage> with AutomaticKeepAliveClientMixin {
+  WorkMenuProvider _homeWorkViewModel;
   List<WorkWidgetEntity> categories = [];
 
   @override
@@ -63,7 +62,7 @@ class _HomeWorkPageState extends State<_HomeWorkContentPage>
 
   @override
   Widget build(BuildContext context) {
-    _homeWorkViewModel = Provide.value<HomeWorkProvider>(context);
+    _homeWorkViewModel = Provide.value<WorkMenuProvider>(context);
     if (_homeWorkViewModel.userInfoEntity == null) {
       _getCurrentUser();
     }
@@ -108,51 +107,90 @@ class _HomeWorkPageState extends State<_HomeWorkContentPage>
         _homeWorkViewModel.userInfoEntity.data != null &&
         _homeWorkViewModel.userInfoEntity.data.permissionList != null &&
         _homeWorkViewModel.userInfoEntity.data.permissionList.length > 0) {
-      ///先获取目录菜单
+      processGetMenu();
+      processGetSubMenu();
+    }
+    setState(() {});
+  }
+
+  ///获取目录中的子菜单
+  void processGetSubMenu() {
+    for (int j = 0; j < categories.length; j++) {
       for (int i = 0;
           i < _homeWorkViewModel.userInfoEntity.data.permissionList.length;
           i++) {
         if (_homeWorkViewModel.userInfoEntity.data.permissionList
-                .elementAt(i)
-                .pid ==
-            Constants.menuType) {
-          categories.add(WorkWidgetEntity(
-              name: _homeWorkViewModel.userInfoEntity.data.permissionList
-                  .elementAt(i)
-                  .name,
-              children: [],
+                    .elementAt(i)
+                    .type ==
+                Constants.subMenuType &&
+            categories.elementAt(j).desc ==
+                _homeWorkViewModel.userInfoEntity.data.permissionList
+                    .elementAt(i)
+                    .pid) {
+          categories.elementAt(j).children.add(WorkWidgetEntity(
+            children: [],
               engName: _homeWorkViewModel.userInfoEntity.data.permissionList
                   .elementAt(i).international,
-              desc: _homeWorkViewModel.userInfoEntity.data.permissionList
+              name: _homeWorkViewModel.userInfoEntity.data.permissionList
                   .elementAt(i)
-                  .id));
-          _homeWorkViewModel.userInfoEntity.data.permissionList.removeAt(i);
+                  .name));
+          _homeWorkViewModel.userInfoEntity.data.permissionList
+              .removeAt(i);
           i--;
         }
       }
-      ///获取目录中的子菜单
-      for (int j = 0; j < categories.length; j++) {
-        for (int i = 0;
-            i < _homeWorkViewModel.userInfoEntity.data.permissionList.length;
-            i++) {
-          if (_homeWorkViewModel.userInfoEntity.data.permissionList
-                      .elementAt(i)
-                      .type ==
-                  Constants.subMenuType &&
-              categories.elementAt(j).desc ==
-                  _homeWorkViewModel.userInfoEntity.data.permissionList
-                      .elementAt(i)
-                      .pid) {
-            categories.elementAt(j).children.add(WorkWidgetEntity(
-                engName: _homeWorkViewModel.userInfoEntity.data.permissionList
-                    .elementAt(i).international,
-                name: _homeWorkViewModel.userInfoEntity.data.permissionList
+    }
+  }
+
+  ///获取子菜单中的子菜单
+  void processGetSubInSubMenu() {
+    for (int j = 0; j < categories.length; j++) {
+      for (int i = 0; i < _homeWorkViewModel.userInfoEntity.data.permissionList.length; i++) {
+        if (_homeWorkViewModel.userInfoEntity.data.permissionList
+            .elementAt(i)
+            .type ==
+            Constants.subMenuType &&
+            categories.elementAt(j).desc ==
+                _homeWorkViewModel.userInfoEntity.data.permissionList
                     .elementAt(i)
-                    .name));
-          }
+                    .pid) {
+          categories.elementAt(j).children.add(WorkWidgetEntity(
+              children: [],
+              engName: _homeWorkViewModel.userInfoEntity.data.permissionList
+                  .elementAt(i).international,
+              name: _homeWorkViewModel.userInfoEntity.data.permissionList
+                  .elementAt(i)
+                  .name));
+          _homeWorkViewModel.userInfoEntity.data.permissionList
+              .removeAt(i);
+          i--;
         }
       }
     }
-    setState(() {});
+  }
+
+  ///先获取目录菜单
+  void processGetMenu() {
+    for (int i = 0;
+        i < _homeWorkViewModel.userInfoEntity.data.permissionList.length;
+        i++) {
+      if (_homeWorkViewModel.userInfoEntity.data.permissionList
+              .elementAt(i)
+              .pid ==
+          Constants.menuType) {
+        categories.add(WorkWidgetEntity(
+            name: _homeWorkViewModel.userInfoEntity.data.permissionList
+                .elementAt(i)
+                .name,
+            children: [],
+            engName: _homeWorkViewModel.userInfoEntity.data.permissionList
+                .elementAt(i).international,
+            desc: _homeWorkViewModel.userInfoEntity.data.permissionList
+                .elementAt(i)
+                .id));
+        _homeWorkViewModel.userInfoEntity.data.permissionList.removeAt(i);
+        i--;
+      }
+    }
   }
 }

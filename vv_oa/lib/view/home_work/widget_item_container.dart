@@ -32,7 +32,7 @@ class WidgetItemContainer extends StatelessWidget {
                 engName: item.engName,
                 onTap: () {
                   if (!isWidgetPoint) {
-                    routePagerNavigatorByPath(context,item.engName);
+                    routePagerNavigatorByPath(context,item.engName,item.name,item.children);
                   }
                 },
                 index: addI,

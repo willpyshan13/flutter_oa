@@ -96,7 +96,7 @@ class _AttendanceOvertimePageState extends State<_AttendanceOvertimePage> {
   ///生成请求体，提交加班
   ExtraWorkEntity getExtraWorkEntity() {
     List<String> copyToList = List();
-    copyToList.add("1115800549863620608");
+    copyToList.add(_overtimeViewModel.copyPersonEntity.post.id);
     _extraWorkEntity = ExtraWorkEntity(copyTo:copyToList,extraWorkType:1,extraWorkReason:_overTimeReason.text,
         extraWorkEndTime:'${_endDate.year}-${_endDate.month}-${_endDate.day} ${_endTime.hour}:${_endTime.minute}:00',extraWorkStartTime: '${_startDate.year}-${_startDate.month}-${_startDate.day} ${_startTime.hour}:${_startTime.minute}:00',extraWorkHours:int.parse(_inputTimeCount.text));
     return _extraWorkEntity;
@@ -145,10 +145,29 @@ class _AttendanceOvertimePageState extends State<_AttendanceOvertimePage> {
     }
   }
 
+  void _findByBillType() {
+      final currentUser = _overtimeViewModel
+          .getAssigneeAndCopyList()
+          .listen((t) {
+
+      }, onError: (e) {
+        //error
+        dispatchFailure(context, e);
+      });
+      _overtimeViewModel.plus(currentUser);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
+
   @override
   Widget build(BuildContext context) {
-
     _overtimeViewModel = Provide.value<OvertimeProvider>(context);
+    _findByBillType();
     return Scaffold(
       appBar: AppBar(
         title: Text(GlobalConfig.vWorkOvertime),

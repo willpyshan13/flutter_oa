@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:vv_oa/constant/v_http_status.dart';
 import 'package:vv_oa/entity/extra_work_entity.dart';
 import 'package:vv_oa/http/dio_http_utils.dart';
 import 'package:vv_oa/entity/login_user_params.dart';
@@ -43,5 +44,24 @@ class VVModelRepository {
       token = "Bearer "+_sp.getString(DataUtils.token);
     }
     return _remote.postExtraWork(json.encode(entity));
+  }
+
+  ///获取抄送人，需要权限
+  ///2019-4-15 测试的时候一直提示权限不足
+  Observable findByBillType(int type) {
+    if(_sp!=null){
+      token = "Bearer "+_sp.getString(DataUtils.token);
+    }
+    Map<String,dynamic> params = {VHttpStatus.extraWorkTypeParams:type};
+    return _remote.findByBillType(params);
+  }
+
+  ///获取抄送人，需要权限
+  ///2019-4-15 测试的时候一直提示权限不足
+  Observable getAssigneeAndCopyList() {
+    if(_sp!=null){
+      token = "Bearer "+_sp.getString(DataUtils.token);
+    }
+    return _remote.getAssigneeAndCopyList();
   }
 }
