@@ -56,12 +56,13 @@ class VVModelRepository {
     return _remote.findByBillType(params);
   }
 
-  ///获取抄送人，需要权限
-  ///2019-4-15 测试的时候一直提示权限不足
-  Observable getAssigneeAndCopyList() {
+  ///获取抄送人
+  ///需要传入amount 金额
+  Observable getAssigneeAndCopyList(int amount) {
     if(_sp!=null){
       token = "Bearer "+_sp.getString(DataUtils.token);
     }
-    return _remote.getAssigneeAndCopyList();
+    Map<String,dynamic> params = {VHttpStatus.assigneeAndCopyListAmount:amount};
+    return _remote.getAssigneeAndCopyList(params);
   }
 }

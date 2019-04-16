@@ -140,34 +140,6 @@ Widget getWorkServiceCard(BuildContext context) {
                       ),
                     )),
               ),
-              new Container(
-                width: MediaQuery.of(context).size.width / 3,
-                child: new FlatButton(
-                    onPressed: () {
-                      routePagerNavigator(context, new AttendanceOvertimePage());
-                    },
-                    child: new Container(
-                      child: new Column(
-                        children: <Widget>[
-                          new Container(
-                            margin: const EdgeInsets.only(bottom: 6.0),
-                            child: new CircleAvatar(
-                              radius: 20.0,
-                              child: new Icon(Icons.flag,
-                                  color: Colors.white),
-                              backgroundColor: new Color(0xFF355A9B),
-                            ),
-                          ),
-                          new Container(
-                            child: new Text(GlobalConfig.workApproval,
-                                style: new TextStyle(
-                                    color: GlobalConfig.fontColor,
-                                    fontSize: 14.0)),
-                          )
-                        ],
-                      ),
-                    )),
-              ),
             ],
           ),
         )

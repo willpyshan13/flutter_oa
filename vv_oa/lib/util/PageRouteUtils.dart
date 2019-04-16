@@ -22,7 +22,7 @@ routeWebView(BuildContext context, String title, String url) {
       }));
 }
 
-///正常跳转网页
+///正常跳转页面
 routePagerNavigator(BuildContext context, Widget v) {
   Navigator.of(context).push(new PageRouteBuilder(
       opaque: false,

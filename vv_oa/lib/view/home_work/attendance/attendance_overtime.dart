@@ -35,7 +35,6 @@ class _AttendanceOvertimePage extends StatefulWidget {
 }
 
 class _AttendanceOvertimePageState extends State<_AttendanceOvertimePage> {
-
   FocusNode _focusNodeTime = new FocusNode();
   FocusNode _focusNodeReason = new FocusNode();
   OvertimeProvider _overtimeViewModel;
@@ -98,9 +97,7 @@ class _AttendanceOvertimePageState extends State<_AttendanceOvertimePage> {
 
   ///生成请求体，提交加班
   ExtraWorkEntity getExtraWorkEntity() {
-    List<String> copyToList = List();
-    copyToList.add(_overtimeViewModel.copyPersonEntity.post.id);
-    _extraWorkEntity = ExtraWorkEntity(copyTo:copyToList,extraWorkType:1,extraWorkReason:_overTimeReason.text,
+    _extraWorkEntity = ExtraWorkEntity(extraWorkType:1,extraWorkReason:_overTimeReason.text,
         extraWorkEndTime:'${_endDate.year}-${_endDate.month}-${_endDate.day} ${_endTime.hour}:${_endTime.minute}:00',extraWorkStartTime: '${_startDate.year}-${_startDate.month}-${_startDate.day} ${_startTime.hour}:${_startTime.minute}:00',extraWorkHours:int.parse(_inputTimeCount.text));
     return _extraWorkEntity;
   }
@@ -134,11 +131,12 @@ class _AttendanceOvertimePageState extends State<_AttendanceOvertimePage> {
           .postExtraWork(getExtraWorkEntity())
           .listen((t) {
         if (_overtimeViewModel.commonResponse != null) {
-          if (_overtimeViewModel.commonResponse.code == VHttpStatus.statusOk) {
-            routePagerAndReplace(context, new AttendanceOvertimeDetailPage());
-          }
           Toast.show(_overtimeViewModel.commonResponse.message, context,
               type: Toast.SUCCESS);
+          if (_overtimeViewModel.commonResponse.code == VHttpStatus.statusOk) {
+//            routePagerAndReplace(context, new AttendanceOvertimeDetailPage());
+              Navigator.pop(context);
+          }
         }
       }, onError: (e) {
         //error
@@ -150,7 +148,7 @@ class _AttendanceOvertimePageState extends State<_AttendanceOvertimePage> {
 
   void _findByBillType() {
       final currentUser = _overtimeViewModel
-          .getAssigneeAndCopyList()
+          .getAssigneeAndCopyList(100)
           .listen((t) {
 
       }, onError: (e) {

@@ -3,7 +3,9 @@ import 'package:vv_oa/constant/work_item.dart';
 import 'package:vv_oa/http/api.dart';
 import 'package:vv_oa/http/default_http_util_with_cookie.dart';
 import 'package:vv_oa/util/DataUtils.dart';
+import 'package:vv_oa/util/PageRouteUtils.dart';
 import 'package:vv_oa/util/StringUtils.dart';
+import 'package:vv_oa/view/home_work/attendance/attendance_overtime_detail.dart';
 
 ///个人感觉条目比较复杂的话可以单独拿出来,而且可以复用.可以对比CollectListPage.dart中的item哪个更合理
 class ArticleItem extends StatefulWidget {
@@ -35,8 +37,8 @@ class ArticleItem extends StatefulWidget {
 
 class ArticleItemState extends State<ArticleItem> {
 
-  void _itemClick(itemData) async {
-
+  void _itemClick(BuildContext context,itemData) async {
+    routePagerNavigator(context,AttendanceOvertimeDetailPage(itemData));
   }
 
   @override
@@ -115,7 +117,7 @@ class ArticleItemState extends State<ArticleItem> {
       child: InkWell(
         child: column,
         onTap: () {
-//          _itemClick(widget.itemData);
+          _itemClick(context,widget.itemData);
         },
       ),
     );

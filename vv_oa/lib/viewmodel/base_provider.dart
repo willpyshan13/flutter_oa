@@ -18,6 +18,7 @@ class BaseProvider extends ChangeNotifier {
 
   String get response => _response;
 
+
   set response(String response) {
     _response = response;
     notifyListeners();

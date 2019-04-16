@@ -21,7 +21,7 @@ final viewModelModule = Module([
   factory<OvertimeProvider>(
           ({params}) => OvertimeProvider(params.get(0), get<VVModelRepository>())),
   factory<WorkSubMenuProvider>(
-          ({params}) => WorkSubMenuProvider(params.get(0), get<VVModelRepository>(),params.get(1))),
+          ({params}) => WorkSubMenuProvider(params.get(0), get<VVModelRepository>())),
   factory<HomeMessageProvider>(({params}) =>
       HomeMessageProvider(params.get(0), get<VVModelRepository>())),
 ])

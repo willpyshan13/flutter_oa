@@ -94,7 +94,7 @@ class _HomeMessagePageState extends State<_HomeContentPage> {
       );
     } else {
       Widget listView = ListView.builder(
-        itemCount: _homeMessageViewModel.flowOverviewEntity.rows.length+1,
+        itemCount: _homeMessageViewModel.flowOverviewEntity.rows==null?1:_homeMessageViewModel.flowOverviewEntity.rows.length+1,
         itemBuilder: (context, i) => buildItem(i),
         controller: _controller,
       );

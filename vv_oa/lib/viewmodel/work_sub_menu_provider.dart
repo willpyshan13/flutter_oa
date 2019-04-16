@@ -10,6 +10,6 @@ import 'base_provider.dart';
 ///提供数据model
 class WorkSubMenuProvider extends BaseProvider {
   List<WorkWidgetEntity> categories = [];
-  WorkSubMenuProvider(String title, VVModelRepository repo,this.categories) : super(title, repo);
+  WorkSubMenuProvider(String title, VVModelRepository repo) : super(title, repo);
 
 }

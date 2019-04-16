@@ -3,6 +3,8 @@ class VHttpStatus {
   ///请求成功
   static final int statusOk = 10000;
 
+  ///登陆信息失效
+  static final int statusCheckUserFailure = 20002;
   ///请假
   static final int extraWorkTypeLeave = 1;
   ///加班
@@ -14,5 +16,7 @@ class VHttpStatus {
 
   static final String extraWorkTypeParams = 'billType';
 
+  ///抄送人中的参数名
+  static final String assigneeAndCopyListAmount = 'amount';
 
 }

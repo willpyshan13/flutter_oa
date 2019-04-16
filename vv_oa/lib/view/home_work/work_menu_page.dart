@@ -4,10 +4,12 @@ import 'package:dartin/dartin.dart';
 import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import 'package:vv_oa/constant/constants.dart';
+import 'package:vv_oa/constant/v_http_status.dart';
 import 'package:vv_oa/event/login_event.dart';
 import 'package:vv_oa/util/dispatch_failure.dart';
 import 'package:vv_oa/view/base/base.dart';
 import 'package:vv_oa/util/DataUtils.dart';
+import 'package:vv_oa/view/login/login_page.dart';
 import 'package:vv_oa/viewmodel/work_menu_provider.dart';
 
 import 'package:vv_oa/entity/work_wigdet_entity.dart';
@@ -86,7 +88,15 @@ class _HomeWorkPageState extends State<_HomeWorkContentPage> with AutomaticKeepA
         .doOnListen(() {})
         .doOnCancel(() {})
         .listen((t) {
-      processMenu();
+          ///校验返回信息，如果是登陆失效，退出到登陆页面
+      if(_homeWorkViewModel.userInfoEntity !=null&&_homeWorkViewModel.userInfoEntity.code == VHttpStatus.statusCheckUserFailure){
+        Navigator.of(context)
+            .pushReplacement(MaterialPageRoute(builder: (context) {
+          return LoginPage("VVOA");
+        }));
+      }else {
+        processMenu();
+      }
     }, onError: (e) {
       dispatchFailure(context, e);
     });
@@ -96,7 +106,9 @@ class _HomeWorkPageState extends State<_HomeWorkContentPage> with AutomaticKeepA
   ///处理个人信息中的权限列表
   void processMenu() {
     print("======listen======");
-    print(_homeWorkViewModel.userInfoEntity.data.permissionList.length);
+    if(_homeWorkViewModel.userInfoEntity==null){
+
+    }
     DataUtils.saveUserInfo(json.encode(_homeWorkViewModel.userInfoEntity))
         .then((r) {
       print("======save success======");

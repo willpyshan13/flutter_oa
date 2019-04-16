@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:vv_oa/constant/global_config.dart';
-import 'package:vv_oa/view/home_work/attendance/attendance_widget.dart';
+import 'package:vv_oa/constant/work_item.dart';
+import 'package:vv_oa/entity/flow_overview_entity.dart';
 
-///加班
+///审批详情
 class AttendanceOvertimeDetailPage extends StatefulWidget {
+  final FlowOverviewRow flowOverviewRow;
+
+  AttendanceOvertimeDetailPage(this.flowOverviewRow);
+
   @override
   State<StatefulWidget> createState() {
     return _AttendanceOvertimeDetailPageState();
@@ -36,14 +41,14 @@ class _AttendanceOvertimeDetailPageState extends State<AttendanceOvertimeDetailP
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[Text(
-                    '彭榆杉',
+                    widget.flowOverviewRow.title,
                     softWrap: true,
                     style: TextStyle(color: Colors.black,fontSize: 20),
                     textAlign: TextAlign.left,
                   ),Text(
-                    '等待审核',
+                    int.parse(widget.flowOverviewRow.status)>=0?WorkItem.flowOverviewStatus[int.parse(widget.flowOverviewRow.status)]:WorkItem.flowOverviewStatus[2],
                     softWrap: true,
-                    style: TextStyle(color: Colors.yellow,fontSize: 18),
+                    style: TextStyle(color: Colors.green,fontSize: 18),
                     textAlign: TextAlign.left,
                   )],
                 ),
@@ -51,50 +56,50 @@ class _AttendanceOvertimeDetailPageState extends State<AttendanceOvertimeDetailP
               ],
             ),
           ),
-          Container(
-            color: GlobalConfig.cardBackgroundColor,
-            child: Row(
-              children: <Widget>[
-                Container(child: Text(
-                  GlobalConfig.commonDepartmentNo,
-                  softWrap: true,
-                  style: _styleGray,
-                  textAlign: TextAlign.right,
-                ),
-                  width: _leftWidth,
-                ),
-                SizedBox(width: 5,),
-                Text(
-                  'sss',
-                  softWrap: true,
-                  style: _styleDark,
-                  textAlign: TextAlign.left,
-                )
-              ],
-            ),
-          ),
-          Container(
-            color: GlobalConfig.cardBackgroundColor,
-            child: Row(
-              children: <Widget>[
-                Container(child: Text(
-                  GlobalConfig.commonDepartment,
-                  softWrap: true,
-                  style: _styleGray,
-                  textAlign: TextAlign.right,
-                ),
-                  width: _leftWidth,
-                ),
-                SizedBox(width: 5,),
-                Text(
-                  'sss',
-                  softWrap: true,
-                  style: _styleDark,
-                  textAlign: TextAlign.left,
-                )
-              ],
-            ),
-          ),
+//          Container(
+//            color: GlobalConfig.cardBackgroundColor,
+//            child: Row(
+//              children: <Widget>[
+//                Container(child: Text(
+//                  GlobalConfig.commonDepartmentNo,
+//                  softWrap: true,
+//                  style: _styleGray,
+//                  textAlign: TextAlign.right,
+//                ),
+//                  width: _leftWidth,
+//                ),
+//                SizedBox(width: 5,),
+//                Text(
+//                  widget.flowOverviewRow.summary,
+//                  softWrap: true,
+//                  style: _styleDark,
+//                  textAlign: TextAlign.left,
+//                )
+//              ],
+//            ),
+//          ),
+//          Container(
+//            color: GlobalConfig.cardBackgroundColor,
+//            child: Row(
+//              children: <Widget>[
+//                Container(child: Text(
+//                  GlobalConfig.commonDepartment,
+//                  softWrap: true,
+//                  style: _styleGray,
+//                  textAlign: TextAlign.right,
+//                ),
+//                  width: _leftWidth,
+//                ),
+//                SizedBox(width: 5,),
+//                Text(
+//                  widget.flowOverviewRow.processInstanceId,
+//                  softWrap: true,
+//                  style: _styleDark,
+//                  textAlign: TextAlign.left,
+//                )
+//              ],
+//            ),
+//          ),
           Container(
             color: GlobalConfig.cardBackgroundColor,
             child: Row(
@@ -109,7 +114,7 @@ class _AttendanceOvertimeDetailPageState extends State<AttendanceOvertimeDetailP
                 ),
                 SizedBox(width: 5,),
                 Text(
-                  'sss',
+                  widget.flowOverviewRow.createTime,
                   softWrap: true,
                   style: _styleDark,
                   textAlign: TextAlign.left,
@@ -117,28 +122,28 @@ class _AttendanceOvertimeDetailPageState extends State<AttendanceOvertimeDetailP
               ],
             ),
           ),
-          Container(
-            color: GlobalConfig.cardBackgroundColor,
-            child: Row(
-              children: <Widget>[
-                Container(child: Text(
-                  GlobalConfig.commonEndTime,
-                  softWrap: true,
-                  style: _styleGray,
-                  textAlign: TextAlign.right,
-                ),
-                  width: _leftWidth,
-                ),
-                SizedBox(width: 5,),
-                Text(
-                  'sss',
-                  softWrap: true,
-                  style: _styleDark,
-                  textAlign: TextAlign.left,
-                )
-              ],
-            ),
-          ),
+//          Container(
+//            color: GlobalConfig.cardBackgroundColor,
+//            child: Row(
+//              children: <Widget>[
+//                Container(child: Text(
+//                  GlobalConfig.commonEndTime,
+//                  softWrap: true,
+//                  style: _styleGray,
+//                  textAlign: TextAlign.right,
+//                ),
+//                  width: _leftWidth,
+//                ),
+//                SizedBox(width: 5,),
+//                Text(
+//                  widget.flowOverviewRow.updateTime,
+//                  softWrap: true,
+//                  style: _styleDark,
+//                  textAlign: TextAlign.left,
+//                )
+//              ],
+//            ),
+//          ),
           Container(
             color: GlobalConfig.cardBackgroundColor,
             child: Row(
@@ -153,7 +158,7 @@ class _AttendanceOvertimeDetailPageState extends State<AttendanceOvertimeDetailP
                 ),
                 SizedBox(width: 5,),
                 Text(
-                  'sss',
+                  widget.flowOverviewRow.summary,
                   softWrap: true,
                   style: _styleDark,
                   textAlign: TextAlign.left,
@@ -161,28 +166,28 @@ class _AttendanceOvertimeDetailPageState extends State<AttendanceOvertimeDetailP
               ],
             ),
           ),
-          Container(
-            color: GlobalConfig.cardBackgroundColor,
-            child: Row(
-              children: <Widget>[
-                Container(child: Text(
-                  GlobalConfig.commonOvertimeReason,
-                  softWrap: true,
-                  style: _styleGray,
-                  textAlign: TextAlign.right,
-                ),
-                  width: _leftWidth,
-                ),
-                SizedBox(width: 5,),
-                Text(
-                  'sss',
-                  softWrap: true,
-                  style: _styleDark,
-                  textAlign: TextAlign.left,
-                )
-              ],
-            ),
-          ),
+//          Container(
+//            color: GlobalConfig.cardBackgroundColor,
+//            child: Row(
+//              children: <Widget>[
+//                Container(child: Text(
+//                  GlobalConfig.commonOvertimeReason,
+//                  softWrap: true,
+//                  style: _styleGray,
+//                  textAlign: TextAlign.right,
+//                ),
+//                  width: _leftWidth,
+//                ),
+//                SizedBox(width: 5,),
+//                Text(
+//                  'sss',
+//                  softWrap: true,
+//                  style: _styleDark,
+//                  textAlign: TextAlign.left,
+//                )
+//              ],
+//            ),
+//          ),
         ],
       ),
     );

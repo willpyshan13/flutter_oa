@@ -13,7 +13,7 @@ class WorkSubMenuPage extends PageProvideNode {
   final String title;
   final List<WorkWidgetEntity> categories;
   WorkSubMenuPage(this.title,this.categories) {
-    mProviders.provideValue(inject<WorkSubMenuProvider>(params: [title,categories]));
+    mProviders.provideValue(inject<WorkSubMenuProvider>(params: [title]));
   }
 
   @override
@@ -53,7 +53,7 @@ class _WorkSubMenuPageState extends State<_WorkSubMenuContentPage> {
   @override
   Widget build(BuildContext context) {
     _homeWorkProvider =Provide.value<WorkSubMenuProvider>(context);
-    categories = _homeWorkProvider.categories;
+//    categories = widget.categories;
     return new Scaffold(
         appBar: AppBar(
           title: Text(_homeWorkProvider.title),

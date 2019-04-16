@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:vv_oa/constant/copy_person_entity.dart';
 import 'package:vv_oa/constant/v_http_status.dart';
+import 'package:vv_oa/entity/assignee_and_copy_entity.dart';
 import 'package:vv_oa/entity/common_response.dart';
 import 'package:vv_oa/entity/extra_work_entity.dart';
 import 'package:vv_oa/model/vv_model_repository.dart';
@@ -15,7 +16,7 @@ import 'base_provider.dart';
 ///提供数据model
 class OvertimeProvider extends BaseProvider {
 
-  CopyPersonEntity copyPersonEntity;
+  AssigneeAndCopyEntity assigneeAndCopyEntity;
 
   OvertimeProvider(String title, VVModelRepository repo) : super(title, repo);
 
@@ -33,10 +34,10 @@ class OvertimeProvider extends BaseProvider {
       .doOnListen(() {})
       .doOnDone(() {});
 
-  Observable getAssigneeAndCopyList() => repo
-      .getAssigneeAndCopyList()
+  Observable getAssigneeAndCopyList(int amount) => repo
+      .getAssigneeAndCopyList(amount)
       .doOnData((r) {
-    copyPersonEntity = CopyPersonEntity.fromJson(r);
+    assigneeAndCopyEntity = AssigneeAndCopyEntity.fromJson(r);
     response = r.toString();
   })
       .doOnError((e, stacktrace) {
