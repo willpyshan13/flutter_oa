@@ -53,7 +53,7 @@ Widget getWorkServiceCard(BuildContext context) {
                 width: MediaQuery.of(context).size.width / 3,
                 child: new FlatButton(
                     onPressed: () {
-                      routePagerNavigator(context, AttendanceTravel());
+                      routePagerNavigator(context, AttendanceTravelPage());
                     },
                     child: new Container(
                       child: new Column(

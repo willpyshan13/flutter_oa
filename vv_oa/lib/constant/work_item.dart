@@ -9,6 +9,26 @@ class WorkItem{
     6:"付款申请",
   };
 
+  ///交通工具（1：飞机；2；火车；3：汽车；4：其他）
+  static const Map<int,String> travelTransportationType = {
+    1:"飞机",
+    2:"火车",
+    3:"汽车",
+    4:"其他",
+  };
+
+  ///时间类别（1：上午；2：下午）
+  static const Map<int,String> travelDayType = {
+    1:"上午",
+    2:"下午",
+  };
+
+  ///行程类别（1：单程；2：往返）
+  static const Map<int,String> travelStrokeType = {
+    1:"单程",
+    2:"往返",
+  };
+
   ///审批状态
   static const List<String> flowOverviewStatus = ['审批中',"审批成功", "审批失败"];
 

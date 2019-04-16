@@ -32,4 +32,7 @@ class VVModelService{
 
   ///发起一个新的外出申请
   Observable<dynamic> startGoutBill(String params)=> posWithData(Api.startGoutBill,params);
+
+  ///发起一个新的出差申请
+  Observable<dynamic> startFlowBusyTripBill(String params)=> posWithData(Api.startFlowBusyTripBill,params);
 }

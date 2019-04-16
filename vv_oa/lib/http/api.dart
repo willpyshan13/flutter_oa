@@ -33,4 +33,7 @@ class Api {
   ///发起一个新的外出申请
   static const   String startGoutBill = "/api/flowGoutBill/startFlowGoutBill";
 
+  ///发起一个新的出差申请
+  static const   String startFlowBusyTripBill = "/api/flowBusyTripBill/startFlowBusyTripBill";
+
 }

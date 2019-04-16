@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:vv_oa/constant/copy_person_entity.dart';
+import 'package:vv_oa/entity/copy_person_entity.dart';
 import 'package:vv_oa/constant/v_http_status.dart';
 import 'package:vv_oa/entity/assignee_and_copy_entity.dart';
 import 'package:vv_oa/entity/common_response.dart';

@@ -10,6 +10,7 @@ import 'package:vv_oa/viewmodel/work_sub_menu_provider.dart';
 
 import 'attendance_outing_provider.dart';
 import 'attendance_statistics_provider.dart';
+import 'attendance_travel_provider.dart';
 import 'overtime_detail_provider.dart';
 
 const testScope = DartInScope('test');
@@ -32,6 +33,8 @@ final viewModelModule = Module([
           ({params}) => AttendanceOutingProvider(params.get(0), get<VVModelRepository>())),
   factory<AttendanceStatisticsProvider>(
           ({params}) => AttendanceStatisticsProvider(params.get(0), get<VVModelRepository>())),
+  factory<AttendanceTravelProvider>(
+          ({params}) => AttendanceTravelProvider(params.get(0), get<VVModelRepository>())),
   factory<HomeMessageProvider>(({params}) =>
       HomeMessageProvider(params.get(0), get<VVModelRepository>())),
 ])

@@ -1,19 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:vv_oa/entity/common_response.dart';
 import 'package:vv_oa/entity/start_gout_bill_entity.dart';
+import 'package:vv_oa/entity/travel_entity.dart';
 import 'package:vv_oa/model/vv_model_repository.dart';
 import 'package:rxdart/rxdart.dart';
-
 import 'base_provider.dart';
 
-///外出
+///出差
 ///提供数据model
-class AttendanceOutingProvider extends BaseProvider {
+class AttendanceTravelProvider extends BaseProvider {
 
-  AttendanceOutingProvider(String title, VVModelRepository repo) : super(title, repo);
+  TravelEntity travelEntity = TravelEntity();
+  AttendanceTravelProvider(String title, VVModelRepository repo) : super(title, repo);
 
-  Observable startGoutBill(StartGoutBillEntity id) => repo
-      .startGoutBill(id)
+  Observable startFlowBusyTripBill() => repo
+      .startFlowBusyTripBill(travelEntity)
       .doOnData((r) {
         commonResponse = CommonResponse.fromJson(r);
       })

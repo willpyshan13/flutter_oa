@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:vv_oa/constant/v_http_status.dart';
 import 'package:vv_oa/entity/extra_work_entity.dart';
 import 'package:vv_oa/entity/start_gout_bill_entity.dart';
+import 'package:vv_oa/entity/travel_entity.dart';
 import 'package:vv_oa/http/dio_http_utils.dart';
 import 'package:vv_oa/entity/login_user_params.dart';
 import 'package:vv_oa/model/vv_model_service.dart';
@@ -97,5 +98,14 @@ class VVModelRepository {
     }
     params.clear();
     return _remote.startGoutBill(json.encode(id));
+  }
+
+  ///发起一个新的外出申请
+  Observable startFlowBusyTripBill(TravelEntity id) {
+    if(_sp!=null){
+      token = "Bearer "+_sp.getString(DataUtils.token);
+    }
+    params.clear();
+    return _remote.startFlowBusyTripBill(json.encode(id));
   }
 }
