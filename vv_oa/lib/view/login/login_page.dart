@@ -41,8 +41,6 @@ class _LoginContentPage extends StatefulWidget {
 
 ///内部状态内容
 class _HomeContentState extends State<_LoginContentPage> with SingleTickerProviderStateMixin<_LoginContentPage> implements Presenter {
-  FocusNode _focusNode = new FocusNode();
-  FocusNode _focusNodePassword = new FocusNode();
   LoginProvider _viewModel;
   TextEditingController _nameController = TextEditingController(text: '020');
   TextEditingController _passwordController = TextEditingController(text: '123456');
@@ -109,6 +107,7 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
     _viewModel = Provide.value<LoginProvider>(context);
     print("--------build--------");
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text(_viewModel.title),
       ),
@@ -118,7 +117,6 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
           child: Column(
             children: <Widget>[
               TextField(
-                focusNode: _focusNode,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(10.0),
@@ -130,7 +128,6 @@ class _HomeContentState extends State<_LoginContentPage> with SingleTickerProvid
                 onChanged: (str) => _viewModel.username = str,
               ),
               TextField(
-                focusNode: _focusNodePassword,
                 obscureText: true,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(

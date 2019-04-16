@@ -6,7 +6,7 @@ import 'package:rxdart/rxdart.dart';
 
 import 'base_provider.dart';
 
-///我的页面
+///工作子菜单页面
 ///提供数据model
 class WorkSubMenuProvider extends BaseProvider {
   List<WorkWidgetEntity> categories = [];

@@ -15,6 +15,7 @@ class _AttendanceLeavePageState extends State<AttendanceLeavePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text(GlobalConfig.vWorkLeave),
       ),

@@ -8,6 +8,10 @@ import 'package:dartin/dartin.dart';
 import 'package:vv_oa/viewmodel/overtime_provider.dart';
 import 'package:vv_oa/viewmodel/work_sub_menu_provider.dart';
 
+import 'attendance_outing_provider.dart';
+import 'attendance_statistics_provider.dart';
+import 'overtime_detail_provider.dart';
+
 const testScope = DartInScope('test');
 
 ///提供model给main注册
@@ -22,6 +26,12 @@ final viewModelModule = Module([
           ({params}) => OvertimeProvider(params.get(0), get<VVModelRepository>())),
   factory<WorkSubMenuProvider>(
           ({params}) => WorkSubMenuProvider(params.get(0), get<VVModelRepository>())),
+  factory<OverTimeDetailProvider>(
+          ({params}) => OverTimeDetailProvider(params.get(0), get<VVModelRepository>())),
+  factory<AttendanceOutingProvider>(
+          ({params}) => AttendanceOutingProvider(params.get(0), get<VVModelRepository>())),
+  factory<AttendanceStatisticsProvider>(
+          ({params}) => AttendanceStatisticsProvider(params.get(0), get<VVModelRepository>())),
   factory<HomeMessageProvider>(({params}) =>
       HomeMessageProvider(params.get(0), get<VVModelRepository>())),
 ])

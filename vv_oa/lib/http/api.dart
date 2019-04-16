@@ -7,7 +7,8 @@ class Api {
 
   ///我的流程列表
   static const   String flowOverview = "api/flowOverview";
-
+  ///获取加班具体信息
+  static const   String getFlowOverviewInfo = "/api/flowOverview/findInfo?id=";
   ///登录
   static const   String login = "api/login/account";
 
@@ -25,4 +26,11 @@ class Api {
 
   ///获取抄送人
   static const   String getAssigneeAndCopyList = "/api/flowBusyTripBill/getAssigneeAndCopyList";
+
+  ///查询个人考勤统计
+  static const   String findBySearchEmployCountOne = "/api/punchattendance/findBySearchEmployCountOne";
+
+  ///发起一个新的外出申请
+  static const   String startGoutBill = "/api/flowGoutBill/startFlowGoutBill";
+
 }

@@ -1,13 +1,35 @@
+import 'package:dartin/dartin.dart';
 import 'package:flutter/material.dart';
+import 'package:provide/provide.dart';
 import 'package:vv_oa/constant/global_config.dart';
 import 'package:vv_oa/constant/work_item.dart';
 import 'package:vv_oa/entity/flow_overview_entity.dart';
+import 'package:vv_oa/util/dispatch_failure.dart';
+import 'package:vv_oa/view/base/base.dart';
+import 'package:vv_oa/viewmodel/overtime_detail_provider.dart';
+
+///加班详情页面
+///@author pengyushan
+///@createTime 2019-4-16
+class AttendanceOvertimeDetailPage extends PageProvideNode {
+  final FlowOverviewRow flowOverviewRow;
+  AttendanceOvertimeDetailPage(this.flowOverviewRow) {
+    mProviders.provideValue(inject<OverTimeDetailProvider>());
+  }
+
+  @override
+  Widget buildContent(BuildContext context) {
+    // TODO: implement buildContent
+    return _AttendanceOvertimeDetailPage(flowOverviewRow);
+  }
+}
+
 
 ///审批详情
-class AttendanceOvertimeDetailPage extends StatefulWidget {
+class _AttendanceOvertimeDetailPage extends StatefulWidget {
   final FlowOverviewRow flowOverviewRow;
 
-  AttendanceOvertimeDetailPage(this.flowOverviewRow);
+  _AttendanceOvertimeDetailPage(this.flowOverviewRow);
 
   @override
   State<StatefulWidget> createState() {
@@ -15,10 +37,29 @@ class AttendanceOvertimeDetailPage extends StatefulWidget {
   }
 }
 
-class _AttendanceOvertimeDetailPageState extends State<AttendanceOvertimeDetailPage> {
+class _AttendanceOvertimeDetailPageState extends State<_AttendanceOvertimeDetailPage> {
+  OverTimeDetailProvider _overTimeDetailProvider;
+
+  ///获取加班详细信息
+  void getFlowOverviewInfo(int id) {
+    final currentUser = _overTimeDetailProvider
+        .getFlowOverviewInfo(id)
+        .listen((t) {
+          setState(() {});
+    }, onError: (e) {
+      //error
+      dispatchFailure(context, e);
+    });
+    _overTimeDetailProvider.plus(currentUser);
+  }
 
   @override
   Widget build(BuildContext context) {
+    _overTimeDetailProvider = Provide.value<OverTimeDetailProvider>(context);
+    if(_overTimeDetailProvider.overtimeDetailEntity==null){
+      getFlowOverviewInfo(widget.flowOverviewRow.id);
+    }
+
     TextStyle _styleGray = TextStyle(color: Colors.grey,fontSize: 15);
     TextStyle _styleDark = TextStyle(color: Colors.black,fontSize: 15);
     double _leftWidth = 90.0;
@@ -114,7 +155,7 @@ class _AttendanceOvertimeDetailPageState extends State<AttendanceOvertimeDetailP
                 ),
                 SizedBox(width: 5,),
                 Text(
-                  widget.flowOverviewRow.createTime,
+                  _overTimeDetailProvider.overtimeDetailEntity==null?'':_overTimeDetailProvider.overtimeDetailEntity.extraWorkStartTime,
                   softWrap: true,
                   style: _styleDark,
                   textAlign: TextAlign.left,
@@ -122,28 +163,28 @@ class _AttendanceOvertimeDetailPageState extends State<AttendanceOvertimeDetailP
               ],
             ),
           ),
-//          Container(
-//            color: GlobalConfig.cardBackgroundColor,
-//            child: Row(
-//              children: <Widget>[
-//                Container(child: Text(
-//                  GlobalConfig.commonEndTime,
-//                  softWrap: true,
-//                  style: _styleGray,
-//                  textAlign: TextAlign.right,
-//                ),
-//                  width: _leftWidth,
-//                ),
-//                SizedBox(width: 5,),
-//                Text(
-//                  widget.flowOverviewRow.updateTime,
-//                  softWrap: true,
-//                  style: _styleDark,
-//                  textAlign: TextAlign.left,
-//                )
-//              ],
-//            ),
-//          ),
+          Container(
+            color: GlobalConfig.cardBackgroundColor,
+            child: Row(
+              children: <Widget>[
+                Container(child: Text(
+                  GlobalConfig.commonEndTime,
+                  softWrap: true,
+                  style: _styleGray,
+                  textAlign: TextAlign.right,
+                ),
+                  width: _leftWidth,
+                ),
+                SizedBox(width: 5,),
+                Text(
+                  _overTimeDetailProvider.overtimeDetailEntity==null?'':_overTimeDetailProvider.overtimeDetailEntity.extraWorkEndTime,
+                  softWrap: true,
+                  style: _styleDark,
+                  textAlign: TextAlign.left,
+                )
+              ],
+            ),
+          ),
           Container(
             color: GlobalConfig.cardBackgroundColor,
             child: Row(
@@ -158,7 +199,7 @@ class _AttendanceOvertimeDetailPageState extends State<AttendanceOvertimeDetailP
                 ),
                 SizedBox(width: 5,),
                 Text(
-                  widget.flowOverviewRow.summary,
+                  _overTimeDetailProvider.overtimeDetailEntity==null?'':_overTimeDetailProvider.overtimeDetailEntity.extraWorkHours,
                   softWrap: true,
                   style: _styleDark,
                   textAlign: TextAlign.left,
@@ -166,28 +207,28 @@ class _AttendanceOvertimeDetailPageState extends State<AttendanceOvertimeDetailP
               ],
             ),
           ),
-//          Container(
-//            color: GlobalConfig.cardBackgroundColor,
-//            child: Row(
-//              children: <Widget>[
-//                Container(child: Text(
-//                  GlobalConfig.commonOvertimeReason,
-//                  softWrap: true,
-//                  style: _styleGray,
-//                  textAlign: TextAlign.right,
-//                ),
-//                  width: _leftWidth,
-//                ),
-//                SizedBox(width: 5,),
-//                Text(
-//                  'sss',
-//                  softWrap: true,
-//                  style: _styleDark,
-//                  textAlign: TextAlign.left,
-//                )
-//              ],
-//            ),
-//          ),
+          Container(
+            color: GlobalConfig.cardBackgroundColor,
+            child: Row(
+              children: <Widget>[
+                Container(child: Text(
+                  GlobalConfig.commonOvertimeReason,
+                  softWrap: true,
+                  style: _styleGray,
+                  textAlign: TextAlign.right,
+                ),
+                  width: _leftWidth,
+                ),
+                SizedBox(width: 5,),
+                Text(
+                  _overTimeDetailProvider.overtimeDetailEntity==null?'':_overTimeDetailProvider.overtimeDetailEntity.extraWorkReason,
+                  softWrap: true,
+                  style: _styleDark,
+                  textAlign: TextAlign.left,
+                )
+              ],
+            ),
+          ),
         ],
       ),
     );

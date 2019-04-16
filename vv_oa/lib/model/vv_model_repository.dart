@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:vv_oa/constant/v_http_status.dart';
 import 'package:vv_oa/entity/extra_work_entity.dart';
+import 'package:vv_oa/entity/start_gout_bill_entity.dart';
 import 'package:vv_oa/http/dio_http_utils.dart';
 import 'package:vv_oa/entity/login_user_params.dart';
 import 'package:vv_oa/model/vv_model_service.dart';
@@ -15,6 +16,9 @@ class VVModelRepository {
   VVModelRepository(this._remote,this._sp);
 
   final DataUtils _sp;
+
+  ///请求参数
+  Map<String,dynamic> params = {};
 
   ///登陆
   Observable login(String username, String password) {
@@ -64,5 +68,34 @@ class VVModelRepository {
     }
     Map<String,dynamic> params = {VHttpStatus.assigneeAndCopyListAmount:amount};
     return _remote.getAssigneeAndCopyList(params);
+  }
+
+  ///获取加班详情
+  ///需要传入审批id
+  Observable getFlowOverviewInfo(String id) {
+    if(_sp!=null){
+      token = "Bearer "+_sp.getString(DataUtils.token);
+    }
+    return _remote.getFlowOverviewInfo(id);
+  }
+
+  ///获取加班详情
+  ///需要传入审批id
+  Observable findBySearchEmployCountOne(String id) {
+    if(_sp!=null){
+      token = "Bearer "+_sp.getString(DataUtils.token);
+    }
+    params.clear();
+
+    return _remote.findBySearchEmployCountOne(params);
+  }
+
+  ///发起一个新的外出申请
+  Observable startGoutBill(StartGoutBillEntity id) {
+    if(_sp!=null){
+      token = "Bearer "+_sp.getString(DataUtils.token);
+    }
+    params.clear();
+    return _remote.startGoutBill(json.encode(id));
   }
 }

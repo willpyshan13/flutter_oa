@@ -4,13 +4,12 @@ import 'package:provide/provide.dart';
 import 'package:vv_oa/constant/global_config.dart';
 import 'package:vv_oa/constant/v_http_status.dart';
 import 'package:vv_oa/entity/extra_work_entity.dart';
-import 'package:vv_oa/util/PageRouteUtils.dart';
 import 'package:vv_oa/util/toast.dart';
 import 'package:vv_oa/util/dispatch_failure.dart';
 import 'package:vv_oa/view/base/base.dart';
-import 'package:vv_oa/view/home_work/attendance/attendance_overtime_detail.dart';
 import 'package:vv_oa/view/home_work/attendance/attendance_widget.dart';
 import 'package:vv_oa/viewmodel/overtime_provider.dart';
+import 'package:vv_oa/widget/ensure_visible_when_focused.dart';
 
 ///加班页面
 ///@author pengyushan
@@ -146,6 +145,7 @@ class _AttendanceOvertimePageState extends State<_AttendanceOvertimePage> {
     }
   }
 
+  ///获取抄送人，目前有获取，没有显示内容，后台会自动添加抄送人
   void _findByBillType() {
       final currentUser = _overtimeViewModel
           .getAssigneeAndCopyList(100)
@@ -170,6 +170,7 @@ class _AttendanceOvertimePageState extends State<_AttendanceOvertimePage> {
     _overtimeViewModel = Provide.value<OvertimeProvider>(context);
     _findByBillType();
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text(GlobalConfig.vWorkOvertime),
       ),
@@ -255,13 +256,16 @@ class _AttendanceOvertimePageState extends State<_AttendanceOvertimePage> {
             height: 1,
           ),
           getContainerRichText(context, GlobalConfig.commonTotalTime),
-          TextField(
+          EnsureVisibleWhenFocused(
             focusNode: _focusNodeTime,
-            keyboardType: TextInputType.number,
-            maxLength: 5,
-            controller: _inputTimeCount,
-            decoration: InputDecoration(
-              helperText: GlobalConfig.commonInputTime,
+            child: TextField(
+              focusNode: _focusNodeTime,
+              keyboardType: TextInputType.number,
+              maxLength: 5,
+              controller: _inputTimeCount,
+              decoration: InputDecoration(
+                helperText: GlobalConfig.commonInputTime,
+              ),
             ),
           ),
           getContainerText(context, GlobalConfig.commonInputTimeAuto),

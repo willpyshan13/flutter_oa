@@ -1,17 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vv_oa/constant/global_config.dart';
 
 
 const double _kPickerSheetHeight = 216.0;
 const double _kPickerItemHeight = 32.0;
-
-const List<String> coolColorNames = <String>[
-  'Sarcoline', 'Coquelicot', 'Smaragdine', 'Mikado', 'Glaucous', 'Wenge',
-  'Fulvous', 'Xanadu', 'Falu', 'Eburnean', 'Amaranth', 'Australien',
-  'Banan', 'Falu', 'Gingerline', 'Incarnadine', 'Labrador', 'Nattier',
-  'Pervenche', 'Sinoper', 'Verditer', 'Watchet', 'Zaffre',
-];
 
 class AttendanceTravel extends StatefulWidget {
   static const String routeName = '/cupertino/picker';
@@ -100,14 +94,11 @@ class _AttendanceTravelState extends State<AttendanceTravel> {
           },
         );
       },
-      child: _buildMenu(
-        <Widget>[
-          const Text('Date and Time'),
-          Text(
-            DateFormat.yMMMd().add_jm().format(dateTime),
-            style: const TextStyle(color: CupertinoColors.inactiveGray),
-          ),
-        ],
+      child: Text(
+        DateFormat.yMd("en_US").add_jm().format(dateTime),
+        softWrap: true,
+        style: TextStyle(color: Theme.of(context).accentColor),
+        textAlign: TextAlign.left,
       ),
     );
   }
@@ -125,12 +116,38 @@ class _AttendanceTravelState extends State<AttendanceTravel> {
           style: TextStyle(),
           child: DecoratedBox(
           decoration: BoxDecoration(
-          color: CupertinoColors.inactiveGray
+          color: CupertinoColors.white
           ),
           child: ListView(
             children: <Widget>[
 //              const Padding(padding: EdgeInsets.only(top: 32.0)),
-              _buildDateAndTimePicker(context),
+              Container(
+                color: GlobalConfig.cardBackgroundColor,
+                child: Container(
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: RichText(
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: '*',
+                                  style: TextStyle(color: Colors.red)),
+                              TextSpan(
+                                  text: GlobalConfig.commonStartTime,
+                                  style: TextStyle(color: Colors.black)),
+                            ],
+                          ),
+                        ),
+                      ),
+                      _buildDateAndTimePicker(context),
+                      Icon(
+                        Icons.chevron_right,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               ],
             ),
           ),

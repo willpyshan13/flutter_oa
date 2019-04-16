@@ -19,4 +19,7 @@ class VHttpStatus {
   ///抄送人中的参数名
   static final String assigneeAndCopyListAmount = 'amount';
 
+  ///加班详情，id参数
+  static final String flowOverviewInfoId = 'id';
+
 }

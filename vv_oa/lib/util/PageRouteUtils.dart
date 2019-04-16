@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vv_oa/entity/work_wigdet_entity.dart';
+import 'package:vv_oa/view/home_work/attendance/attendance_statistics.dart';
 import 'package:vv_oa/view/home_work/work_sub_menu_page.dart';
 import 'package:vv_oa/view/home_work/attendance/attendance_overtime.dart';
 import 'package:vv_oa/view/webview/article_detail_page.dart';
@@ -41,12 +42,17 @@ routePagerNavigator(BuildContext context, Widget v) {
 }
 
 ///跳转页面，通过英文名
+///名字从后台来的， 如果后台修改了，这边就无法跳转了
 routePagerNavigatorByPath(BuildContext context, String path,String name,List<WorkWidgetEntity> categories) {
   ///跳转我的申请页面
+  print(path);
   if(path == 'myApplication'){
     routePagerNavigator(context, WorkSubMenuPage(name,categories));
+  }else if(path == 'myAttendance'){
+    routePagerNavigator(context, AttendanceStatisticsPage());
+  }else if(path == 'attendanceCount'){
+    routePagerNavigator(context, AttendanceStatisticsPage());
   }
-
 }
 
 ///跳转页面，销毁原先页面
