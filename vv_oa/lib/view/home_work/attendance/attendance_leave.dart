@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vv_oa/constant/global_config.dart';
 import 'package:vv_oa/view/home_work/attendance/attendance_widget.dart';
-import 'package:vv_oa/view/webview/article_detail_page.dart';
+import 'package:vv_oa/widget/ensure_visible_when_focused.dart';
 
 ///请假页面
 class AttendanceLeavePage extends StatefulWidget {
@@ -12,6 +12,10 @@ class AttendanceLeavePage extends StatefulWidget {
 }
 
 class _AttendanceLeavePageState extends State<AttendanceLeavePage> {
+  FocusNode _focusNodeTime = new FocusNode();
+  FocusNode _focusNodeReason = new FocusNode();
+  TextEditingController _overTimeReason = TextEditingController(text: '');
+  TextEditingController _inputTimeCount = TextEditingController(text: '');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,8 +38,19 @@ class _AttendanceLeavePageState extends State<AttendanceLeavePage> {
           ),
           getAttendanceTextItem(context, GlobalConfig.commonStartTime),
           getAttendanceTextItem(context, GlobalConfig.commonEndTime),
-          getAttendanceTextItemNoIcon(context, GlobalConfig.commonTotalTime,
-              GlobalConfig.commonInputTime),
+          getContainerRichText(context, GlobalConfig.commonTotalTime),
+          EnsureVisibleWhenFocused(
+            focusNode: _focusNodeTime,
+            child: TextField(
+              focusNode: _focusNodeTime,
+              keyboardType: TextInputType.number,
+              maxLength: 5,
+              controller: _inputTimeCount,
+              decoration: InputDecoration(
+                helperText: GlobalConfig.commonInputTime,
+              ),
+            ),
+          ),
           getContainerText(context, GlobalConfig.commonInputTimeAuto),
           SizedBox(height: 10.0),
           getTextField(context, GlobalConfig.commonLeaveReason),

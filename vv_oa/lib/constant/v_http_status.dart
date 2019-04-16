@@ -5,6 +5,8 @@ class VHttpStatus {
 
   ///登陆信息失效
   static final int statusCheckUserFailure = 20002;
+  ///外出时间冲突
+  static final int attendanceOutingFailure = 50012;
   ///请假
   static final int extraWorkTypeLeave = 1;
   ///加班

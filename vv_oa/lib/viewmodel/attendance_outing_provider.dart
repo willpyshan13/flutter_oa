@@ -13,14 +13,13 @@ import 'base_provider.dart';
 ///外出
 ///提供数据model
 class AttendanceOutingProvider extends BaseProvider {
-  OvertimeDetailEntity overtimeDetailEntity;
 
   AttendanceOutingProvider(String title, VVModelRepository repo) : super(title, repo);
 
   Observable startGoutBill(StartGoutBillEntity id) => repo
       .startGoutBill(id)
       .doOnData((r) {
-        overtimeDetailEntity = OvertimeDetailEntity.fromJson(r);
+        commonResponse = CommonResponse.fromJson(r);
       })
       .doOnError((e, stacktrace) {
         if (e is DioError) {

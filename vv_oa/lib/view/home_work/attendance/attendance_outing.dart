@@ -4,8 +4,10 @@ import 'package:dartin/dartin.dart';
 import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import 'package:vv_oa/constant/global_config.dart';
+import 'package:vv_oa/constant/v_http_status.dart';
 import 'package:vv_oa/entity/start_gout_bill_entity.dart';
 import 'package:vv_oa/util/dispatch_failure.dart';
+import 'package:vv_oa/util/toast.dart';
 import 'package:vv_oa/view/base/base.dart';
 import 'package:vv_oa/view/home_work/attendance/attendance_widget.dart';
 import 'package:image_picker/image_picker.dart';
@@ -110,7 +112,10 @@ class _AttendanceOutingPageState extends State<_AttendanceOutingPage> {
     final currentUser = _attendanceOutingProvider
         .startGoutBill(_goutBillEntity)
         .listen((t) {
-
+          Toast.show(_attendanceOutingProvider.commonResponse.message, context);
+          if(_attendanceOutingProvider.commonResponse.code == VHttpStatus.statusOk){
+            Navigator.pop(context);
+          }
     }, onError: (e) {
       //error
       dispatchFailure(context, e);
